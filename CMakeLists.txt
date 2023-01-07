@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.23)
+
 project(AED_GRAPHS)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(AED_GRAPHS main.cpp)
+add_executable(AED_GRAPHS main.cpp src/Airline.cpp src/Airports.cpp)
 
 # Doxygen Build
 find_package(Doxygen)
