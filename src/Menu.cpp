@@ -49,6 +49,7 @@ void Menu::MainMenu() {
         case 0:
             exit(0);
         default:
+            cout << "Not a valid option\n";
             break;
     }
 }
@@ -58,8 +59,8 @@ void Menu::BestRouteMenu(){
     string departure, destination;
 
     cout << "Insert the following details\n\n";
-    cout << "Departure:" << "\n";
     cout << "Choose the option that suits you" << "\n";
+    cout << "Departure:" << "\n";
     cout << "a) City\n";
     cout << "b) Airport\n";
     cout << "c) Coordinates\n";
@@ -113,7 +114,8 @@ void Menu::BestRouteMenu(){
             break;
         }
     }
-    showBestRoute(airport, departure, destination, dep, dest);
+    list<list<pair<Airport,string>>> airports = data.getTraveledAirports(departure, destination);
+    pages(airports);
 
 }
 
@@ -143,3 +145,85 @@ void Menu::showFlightNetworkStatistics(Graph a) {
     cout<<"Total Number of Airports ---> "<<airports<< "\n";
 
 }
+
+void Menu::pages(const std::list<std::list<std::pair<Airport, std::string>>> &traveled_airports) const {
+if (traveled_airports.empty()) {
+cout << "There is no way to travel!\n";
+cout << "\nPress <Enter> to go to search menu...";
+/* wait for enter to be pressed */
+cin.ignore(); // ignore characters in buffer
+while(cin.get() != '\n')
+continue;
+return;
+}
+int page = 1;
+string tmp;
+stringstream ss;
+auto path = traveled_airports.begin();
+while(true) {
+clearScreen();
+
+cout << "--------------------------------------------------------\n";
+cout << "|                    Flight Info                       |\n";
+cout << "|                                                      |\n";
+
+for(const auto &traveled_airport: *path) {
+if(traveled_airport.second != "") {
+tmp = "| (" + traveled_airport.second + ")";
+cout << tmp;
+for (int i = 0; i < 55 - tmp.length(); i++) std::cout << " ";
+cout << "|\n";
+}
+
+tmp = "| Airport - " + traveled_airport.first.getCode() /* + " - " + traveled_airport.getName() */;
+cout << tmp;
+for (int i = 0; i < 55 - tmp.length(); i++) std::cout << " ";
+cout << "|\n";
+}
+cout << "|                                                      |\n";
+
+ss.str("");
+ss << "| You traveled by " << path->size() << " airports.";
+tmp = ss.str();
+cout << tmp;
+for (int i = 0; i < 55 - tmp.length(); i++) std::cout << " ";
+cout << "|\n";
+cout << "|                                                      |\n";
+
+ss.str("");
+ss << "| Page " << page << "/" << traveled_airports.size();
+tmp = ss.str();
+cout << tmp;
+for (int i = 0; i < 55 - tmp.length(); i++) std::cout << " ";
+cout << "|\n";
+cout << "--------------------------------------------------------\n";
+
+cout << "\nPress n(ext)/p(rev)/e(xit): ";
+
+char opt;
+while (true) {
+cin >> opt;
+if (opt == 'n') {
+page++;
+if (page > traveled_airports.size()) {
+page = 1;
+path = traveled_airports.begin();
+} else
+++path;
+break;
+} else if (opt == 'p') {
+page--;
+if (page < 1) {
+page = traveled_airports.size();
+path = traveled_airports.end(); --path;
+} else
+--path;
+break;
+} else if (opt == 'e') {
+return;
+}
+}
+}
+}
+
+
