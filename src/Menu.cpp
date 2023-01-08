@@ -20,8 +20,6 @@ ____ _ ____ ___  ____ ____ ___    _  _ ____ _  _ ____ ____ ____ _  _ ____ _  _ _
     )" << "\n";
 }
 
-
-
 void Menu::MainMenu() {
     printTitle();
 
@@ -29,6 +27,7 @@ void Menu::MainMenu() {
     cout << "\tMain Menu\n";
     cout << "(1) Best Route\n";
     cout << "(2) Flight Network Statistics\n";
+    cout << "(3) \n";
     cout << "(0) Exit\n";
     cout << " > ";
 
@@ -43,6 +42,9 @@ void Menu::MainMenu() {
         case 2:
             clearScreen();
             FlightNetworkMenu();
+            break;
+        case 3:
+            clearScreen();
             break;
         case 0:
             exit(0);

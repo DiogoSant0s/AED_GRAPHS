@@ -18,3 +18,7 @@ string Airport::getCity() const {return airport_city;}
 string Airport::getCountry() const {return airport_country;}
 double Airport::getLatitude() const {return _latitude;}
 double Airport::getLongitude() const {return _longitude;}
+
+bool Airport::operator==(const Airport &airport) const {
+    return airport_code == airport.getCode();
+}

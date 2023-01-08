@@ -4,7 +4,7 @@ project(AED_GRAPHS)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(AED_GRAPHS main.cpp src/Airline.cpp src/Airport.cpp src/Rectangle.cpp src/Graph.cpp src/Menu.cpp src/LoadData.cpp)
+add_executable(AED_GRAPHS main.cpp src/Airline.cpp src/Airport.cpp src/Haversine.cpp src/Graph.cpp src/Menu.cpp src/Data.cpp)
 
 # Doxygen Build
 find_package(Doxygen)

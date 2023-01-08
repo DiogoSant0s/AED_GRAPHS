@@ -60,6 +60,13 @@ public:
      * @return string relativa à longitude da posição do aeroporto
      */
     double getLongitude() const;
+    /**
+     * Complexity: O(1)
+     * @brief Operador de igualdade para dois membros da classe Airline.
+     * @param airport Companhia aérea a comparar
+     * @return True se o código do aeroporto for igual ao código do aeroporto airline
+     */
+    bool operator==(const Airport& airport) const;
 };
 
 #endif //AED_GRAPHS_AIRPORT_H

@@ -56,11 +56,11 @@ public:
     string getCountry() const;
     /**
      * Complexity: O(1)
-     * @brief Operador de inferioridade para dois membros da classe Airline.
+     * @brief Operador de igualdade para dois membros da classe Airline.
      * @param airline Companhia aérea a comparar
-     * @return True se o código da companhia aérea for menor que o codigo da companhia aérea airline
+     * @return True se o código da companhia aérea for igual que o codigo da companhia aérea airline
      */
-    bool operator<(const Airline& airline)const;
+    bool operator==(const Airline& airline) const;
 };
 
 #endif //AED_GRAPHS_AIRLINE_H

@@ -13,6 +13,4 @@ string Airline::getName() const {return airline_name;}
 string Airline::getCallSign() const {return airline_callsign;}
 string Airline::getCountry() const {return airline_country;}
 
-bool Airline::operator<(const Airline& airline) const {
-    return airline_code < airline.getCode();
-}
+bool Airline::operator==(const Airline &airline) const {return airline_code == airline.getCode();}

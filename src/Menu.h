@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "LoadData.h"
+#include "Data.h"
 
 using namespace std;
 
