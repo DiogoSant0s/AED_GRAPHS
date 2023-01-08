@@ -1,7 +1,10 @@
-#include "string"
 #include "Menu.h"
 
-Menu::Menu(Airports a): airpot(a) {};
+Menu::Menu() {
+    data.loadData_Airlines();
+    data.loadData_Airports();
+    data.loadData_Flights();
+}
 
 void Menu::clearScreen() {
     for (int i = 0; i < 40; i++) {
@@ -16,6 +19,7 @@ ____ _ ____ ___  ____ ____ ___    _  _ ____ _  _ ____ ____ ____ _  _ ____ _  _ _
 |  | | |  \ |    |__| |  \  |     |  | |  | | \| |  | |__] |___ |  | |___ | \|  |
     )" << "\n";
 }
+
 int Menu::getUserInput(vector<int> inputs) {
     int input;
     if(!cin){
@@ -54,8 +58,8 @@ string Menu::getUserTextInput() {
     }
     return input;
 }
+
 void Menu::MainMenu() {
-    List_Size = 15;
     printTitle();
 
     cout << "\n";
@@ -78,19 +82,17 @@ void Menu::MainMenu() {
             break;
         case 2:
             clearScreen();
-            StudentsMenu(List_Size);
+
             break;
         case 3:
             clearScreen();
-            SchedulesMenu(List_Size);
+
             break;
         case 4:
             clearScreen();
-            RequestMenu(List_Size);
+
             break;
         case 0:
-            LoadData::processAllRequests(data.getStudents(), data.getUCs(), data.getSchedules(), data.getRequests());
-            LoadData::archiveStudents(data.getStudents());
             exit(0);
         default:
             break;
@@ -158,7 +160,7 @@ void Menu::BestRouteMenu(){
         }
     }
     showBestRoute(airport, departure, destination, dep, dest);
-    break;
+
 }
 
 void Menu::showBestRoute(Airports &a, string departure, string destination, dep, dest){
@@ -168,14 +170,10 @@ void Menu::showBestRoute(Airports &a, string departure, string destination, dep,
 
     cout << "The best route available from" << departure << "to" << destination << "is:\n";
 
-    for(auto a:res){
+    for(auto e: res){
         cout << " ->" << s << "airport\n";
     }
 
     cout << "-----------------------------------------------------------\n";
 
 }
-
-
-
-

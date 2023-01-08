@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
-#include "Airports.h"
+#include "Airport.h"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ using namespace std;
 class Graph {
 public:
     /**
-     * Struct que representa uma aresta.
+     * Struct que representa um voo.
      * @details Contém o vértice de destino, o peso da aresta e um conjunto de airlines que realizam o voo.
      */
     struct Edge {
@@ -29,9 +29,9 @@ public:
         set<string> airlines;
     };
     /**
-     * Struct que representa um nó.
-     * @details Contém uma lista de arestas que saem do nó, um booleano que indica se o nó já foi visitado numa pesquisa
-     * e um inteiro que indica a distância do nó à origem da pesquisa.
+     * Struct que representa um aeroporto.
+     * @details Contém uma lista de voos que saem do aeroporto, um booleano que indica se o aeroporto já foi visitado numa pesquisa
+     * e um inteiro que indica a distância do aeroporto à origem da pesquisa.
      */
     struct Node {
         list<Edge> adj;
@@ -43,7 +43,7 @@ public:
     /// Vetor de nós do grafo.
     vector<Node> nodes;
     /**
-     * @brief Construtor default classe Graph.
+     * Construtor default da classe Graph.
      * @Complexity Complexidade temporal: O(1)
      * @details Cria um grafo com 0 nós.
      */
@@ -56,10 +56,10 @@ public:
      */
     explicit Graph(int nodes);
     /**
-     * Adiciona uma aresta ao grafo.
+     * Adiciona um voo ao grafo.
      * @Complexity Complexidade temporal: O(|E|)
-     * @param src Nó de origem da aresta.
-     * @param dest Nó de destino da aresta.
+     * @param src Aeroporto de origem da aresta.
+     * @param dest Aeroporto de destino da aresta.
      * @param weight Peso da aresta.
      * @param airline Airline que realiza o voo.
      */
@@ -72,51 +72,50 @@ public:
      */
     int getOutDegree(int i);
     /**
-     * Retorna o número de companhias aéreas diferentes que voam a partir de um nó.
-     * Sendo E o número de arestas que saem do nó e Airlines o tamanho do set de airlines dessa aresta, temos:
+     * Retorna o número de companhias aéreas diferentes que voam a partir de um aeroporto.
      * @Complexity Complexidade temporal: O(|E| * |Airlines|)
      * @param i Nó do qual se quer saber o número de companhias aéreas.
      * @return Número de companhias aéreas.
      */
     int getAirlinesNumber(int i);
     /**
-     * Retorna o número de destinos diferentes alcançáveis a partir de um nó.
-     * Sendo E o número de arestas que saem do nó e Airlines o tamanho do set de airlines dessa aresta, temos:
-     * @Complexity Complexidade temporal: O(|E|*|Airlines|)
+     * Retorna o número de destinos diferentes alcançáveis a partir de um aeroporto.
+     * @Complexity Complexidade temporal: O(|E| * |Airlines|)
      * @param i Nó de destino.
      * @return Número de destinos diferentes.
      */
     int getDestinationsNumber(int i);
     /**
-     * @brief Retorna o número de destinos em países diferentes alcançáveis a partir de um nó.
-     * Sendo E o número de arestas que saem do nó e Airlines o tamanho do set de airlines dessa aresta, temos:
-     * @Complexity Complexidade temporal: O(|E|*|Airlines|)
+     * Retorna o número de destinos em países diferentes alcançáveis a partir de um aeroporto.
+     * @Complexity Complexidade temporal: O(|E| * |Airlines|)
      * @param i Nó de destino.
+     * @param airports
      * @return Número de destinos com países diferentes.
      */
     int getDestinationsCountries(int i, unordered_map<int, Airport> &airports);
     /**
-     * @brief Retorna o número de arestas do grafo.
+     * Retorna o número de arestas do grafo.
      * @Complexity Complexidade temporal: O(|V|)
      * @return Número de arestas do grafo.
      */
     int getNumEdges();
     /**
-     * @brief Retorna o número de companhias aéreas.
-     * @Complexity Complexidade temporal: O(|V|+|E|*|Airlines|)
+     * Retorna o número de companhias aéreas.
+     * @Complexity Complexidade temporal: O(|V| + |E| * |Airlines|)
      * @return Número de companhias aéreas.
      */
     int getCompanies();
     /**
-     * @brief Retorna o diâmetro do grafo.
-     * Para obter o diametro do grafo, é necessário calcular o menor caminho entre todos os pares de nós.
+     * Retorna o diâmetro do grafo.
+     * @details Para obter o diametro do grafo, é necessário calcular o menor caminho entre todos os pares de nós.
      * Para isso é necesário um BFS para cada nó.
      * @Complexity Complexidade temporal: O(|V| * (|V| + |E|)).
+     * @return Diâmetro do grafo.
      */
     int getDiameter();
     /**
-     * Retorna os destinos alcançáveis a partir de um nó com r voos ou menos.
-     * É utilizado um simples BFS, adicionando à fila todos os nós com distância <= r.
+     * Retorna os destinos alcançáveis a partir de um aeroporto com r voos ou menos.
+     * @details É utilizado um simples BFS, adicionando à fila todos os nós com distância <= r.
      * @Complexity Complexidade temporal: O(|V|+|E|)
      * @param src
      * @param r
@@ -124,7 +123,7 @@ public:
      */
     set<int> getDestinations(int src, int r);
     /**
-     * Retorna o vetor de nós do grafo.
+     * Método normal que devolve o atributo nodes
      * @Complexity Complexidade temporal: O(1)
      * @return Vector com os nós do grafo.
      */

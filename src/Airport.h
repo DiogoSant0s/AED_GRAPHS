@@ -1,5 +1,5 @@
-#ifndef AED_GRAPHS_AIRPORTS_H
-#define AED_GRAPHS_AIRPORTS_H
+#ifndef AED_GRAPHS_AIRPORT_H
+#define AED_GRAPHS_AIRPORT_H
 
 #include <string>
 
@@ -62,4 +62,4 @@ public:
     double getLongitude() const;
 };
 
-#endif //AED_GRAPHS_AIRPORTS_H
+#endif //AED_GRAPHS_AIRPORT_H
