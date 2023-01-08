@@ -20,44 +20,7 @@ ____ _ ____ ___  ____ ____ ___    _  _ ____ _  _ ____ ____ ____ _  _ ____ _  _ _
     )" << "\n";
 }
 
-int Menu::getUserInput(vector<int> inputs) {
-    int input;
-    if(!cin){
-        cin.ignore();
-        cin.ignore(100,'\n');
-        cin.clear();
-    }
-    cin >> input;
-    while (cin.fail() || (find(inputs.begin(), inputs.end(), input) == inputs.end())) {
-        if (cin.eof() || input == 0) {
-            cout << "\nExiting\n\n";
-            exit(0);
-        }
-        cin.clear();
-        cin.ignore();
-        cerr << "Not a valid input, please input one of the shown options: ";
-        cin >> input;
-    }
-    cin.ignore(100, '\n');
-    return input;
-}
 
-string Menu::getUserTextInput() {
-    string input;
-    getline(cin, input);
-    if (cin.fail()) cout << "deez";
-    while (cin.fail() || input.length() == 0) {
-        if (cin.eof()) {
-            cout << "\nExiting\n\n";
-            exit(0);
-        }
-        cin.clear();
-        cin.ignore(100, '\n');
-        cerr << "Not a valid input, please try again: ";
-        getline(cin, input);
-    }
-    return input;
-}
 
 void Menu::MainMenu() {
     printTitle();
@@ -66,14 +29,11 @@ void Menu::MainMenu() {
     cout << "\tMain Menu\n";
     cout << "(1) Best Route\n";
     cout << "(2) Flight Network Statistics\n";
-    cout << "(3) \n";
-    cout << "(4) Requests\n";
     cout << "(0) Exit\n";
     cout << " > ";
 
-    vector<int> inputs = {0, 1, 2, 3, 4};
     int input;
-    input = getUserInput(inputs);
+    cin >> input;
 
     switch (input) {
         case 1:
@@ -82,15 +42,7 @@ void Menu::MainMenu() {
             break;
         case 2:
             clearScreen();
-
-            break;
-        case 3:
-            clearScreen();
-
-            break;
-        case 4:
-            clearScreen();
-
+            FlightNetworkMenu();
             break;
         case 0:
             exit(0);
@@ -163,8 +115,8 @@ void Menu::BestRouteMenu(){
 
 }
 
-void Menu::showBestRoute(Airports &a, string departure, string destination, dep, dest){
-    vector<string> res = manager.bestRouteDistribution(departure, destination, dep,dest);
+void Menu::showBestRoute(string departure, string destination){
+    vector<string> res = least_flights(const vector<int>& sources, const vector<int>& destination);
 
     cout << "----------------------------------------------------------\n";
 
@@ -175,5 +127,17 @@ void Menu::showBestRoute(Airports &a, string departure, string destination, dep,
     }
 
     cout << "-----------------------------------------------------------\n";
+
+}
+
+void Menu::showFlightNetworkStatistics(Graph a) {
+    int flights = a.getGlobalNumFlights();
+    int airlines = a.getAirlines().size();
+    int airports = a.getAirports().size();
+
+    printTitle();
+    cout<<"Total Number of Flights ---> "<<flights<< "\n";
+    cout<<"Total Number of Airlines---> "<<airlines<< "\n";
+    cout<<"Total Number of Airports ---> "<<airports<< "\n";
 
 }
