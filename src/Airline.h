@@ -23,6 +23,11 @@ private:
     string airline_country;
 public:
     /**
+     *  Create a new Airline.
+     * @details Constructor of the Airline class.
+     */
+    Airline() = default;;
+    /**
      * @brief Construtor da classe Airline
      * @param code Código da companhia aérea
      * @param name Nome da companhia aérea

@@ -11,9 +11,14 @@ private:
     string airport_name;
     string airport_city;
     string airport_country;
-    double _latitude;
-    double _longitude;
+    double _latitude{};
+    double _longitude{};
 public:
+    /**
+     * Creates a new Airport
+     * @details Constructor of the Airport class.
+     */
+    Airport() = default;
     /**
      * Construtor da classe Airport
      * @param code Código do aeroporto

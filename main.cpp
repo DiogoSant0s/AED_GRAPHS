@@ -2,6 +2,6 @@
 
 int main() {
     Menu menu = Menu();
-    menu.MainMenu();
+    menu.init();
     return 0;
 }

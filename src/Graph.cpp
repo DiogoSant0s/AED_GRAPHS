@@ -1,447 +1,367 @@
 #include "Graph.h"
 
-Graph::Graph() {n = 0;}
+Graph::Graph(bool dir): has_dir(dir) {}
 
-Graph::Graph(int num) : n(num), nodes(num + 1) {}
+int Graph::size_Nodes(){
+    return (int) nodes.size();
+}
 
-void Graph::addEdge(int src, int dest, string airline, int weight) {
-    if (src < 1 || src > n || dest < 1 || dest > n) return;
-    for (Edge& e : nodes[src].adj)
-        if (e.dest == dest) {
-            e.airlines.insert(airline);
-            return;
+int Graph::size_Flights(){
+    int count = 0;
+    for (auto const &n : nodes){
+        count += (int) n.second.adj.size();
+    }
+    return count;
+}
+
+std::multiset<std::pair<std::string,int>, CompareDistance> Graph::top_flights(int k){
+    std::multiset<std::pair<std::string,int>, CompareDistance> flights;
+    flights.insert({"",0});
+    for (auto const &n:nodes) {
+        for (auto &p: flights) {
+            if (flights.size()<k){
+                flights.insert({n.first, n.second.adj.size()});
+                break;
+            }
+            if (p.second < n.second.adj.size()) {
+                flights.insert({n.first, n.second.adj.size()});
+                break;
+            }
         }
-    nodes[src].adj.push_back({dest, weight, {airline}});
-}
-
-int Graph::getOutDegree(int i) {return (int) nodes[i].adj.size();}
-
-int Graph::getAirlinesNumber(int i) {
-    set<string> airlines;
-    for (const auto& e : nodes[i].adj) {
-        for (const auto& a : e.airlines) {
-            airlines.insert(a);
-        }
+        while (flights.size()>k)
+            flights.erase(std::prev(flights.end()));
     }
-    return (int) airlines.size();
+    return flights;
 }
 
-int Graph::getDestinationsNumber(int i) {
-    set<int> destinations;
-    for (const auto& e : nodes[i].adj) {
-        destinations.insert(e.dest);
-    }
-    return (int) destinations.size();
-}
-
-int Graph::getDestinationsCountries(int i, unordered_map<int, Airport> &airports) {
-    set<string> countries;
-    for (const auto& e : nodes[i].adj) {
-        countries.insert(airports.at(e.dest).getCountry());
-    }
-    return (int) countries.size();
-}
-
-int Graph::getNumEdges() {
-    int num_edges = 0;
-    for (int i = 1; i <= n; ++i) {
-        num_edges += (int) nodes[i].adj.size();
-    }
-    return num_edges;
-}
-
-int Graph::getCompanies() {
-    set<string> companies;
-    for (int i = 1; i <= n; ++i) {
-        for (const auto &e: nodes[i].adj) {
-            for (const auto &c: e.airlines) {
-                companies.insert(c);
+int Graph::Diameter(){
+    int size=0;
+    for (auto const &n:nodes) {
+        bfs_diameter(n.first);
+        for (auto &i:nodes) {
+            if (i.second.visited) {
+                i.second.visited = false;
+                if (i.second.travel_from_src.front().size() - 1 > size)
+                    size = (int) i.second.travel_from_src.front().size() - 1;
             }
         }
     }
-    return (int) companies.size();
+    return size;
 }
-
-int Graph::getDiameter() {
-    int diameter = 0;
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            nodes[j].visited = false;
-            nodes[j].distance = -1;
-        }
-        queue<int> q;
-        q.push(i);
-        nodes[i].visited = true;
-        nodes[i].distance = 0;
-        while (!q.empty()) {
-            int u = q.front();
-            q.pop();
-            for (const auto& e : nodes[u].adj) {
-                int w = e.dest;
-                if (!nodes[w].visited) {
-                    q.push(w);
-                    nodes[w].visited = true;
-                    nodes[w].distance = nodes[u].distance + 1;
-                    diameter = max(diameter, nodes[w].distance);
-                }
-            }
-        }
-    }
-    return diameter;
-}
-
-set<int> Graph::getDestinations(int src, int r) {
-    set<int> destinations;
-    for (int j = 1; j <= n; ++j) {
-        nodes[j].visited = false;
-        nodes[j].distance = -1;
-    }
-    queue<int> q;
-    q.push(src);
-    nodes[src].visited = true;
-    nodes[src].distance = 0;
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-        for (const auto& e : nodes[u].adj) {
-            int w = e.dest;
-            if (!nodes[w].visited) {
-                nodes[w].visited = true;
-                nodes[w].distance = nodes[u].distance + 1;
-                if (nodes[w].distance <= r) {
-                    q.push(w);
-                    destinations.insert(w);
-                }
-            }
-        }
-    }
-    return destinations;
-}
-
-vector<Graph::Node> Graph::getNodes() const {return nodes;}
-
-vector<pair<int, int>> Graph::getTopAirports(int i) {
-    vector<pair<int, int>> airports(n);
-    for (int v = 1; v <= n; v++) {
-        airports[v - 1] = make_pair(v, getDestinationsNumber(v));
-    }
-    sort(airports.begin(), airports.end(), [](const pair<int, int>& a, const pair<int, int>& b) {return a.second > b.second;});
-    return {airports.begin(), airports.begin() + i};
-}
-
-set<int> Graph::getArticulationPoints() {
-    set<int> articulationPoints;
-    vector<int> low(n + 1);
-    vector<int> num(n + 1);
-    unordered_set<int> s;
-    for (int i = 1; i <= n; i++) {
-        nodes[i].visited = false;
-    }
-    for (int i = 1; i <= n; i++) {
-        if(!nodes[i].visited) {
-            articulationPointsDFS(i, 0, num, low, s, articulationPoints, true);
-        }
-    }
-    return articulationPoints;
-}
-
-set<int> Graph::getArticulationPoints(set<string>& airlines_to_consider) {
-    set<int> articulationPoints;
-    vector<int> low(n + 1);
-    vector<int> num(n + 1);
-    unordered_set<int> s;
-    for (int i = 1; i <= n; i++) {
-        nodes[i].visited = false;
-    }
-    for (int i = 1; i <= n; i++) {
-        if(!nodes[i].visited) {
-            articulationPointsDFS(i, 0, num, low, s, articulationPoints, airlines_to_consider, true);
-        }
-    }
-    return articulationPoints;
-}
-
-void Graph::articulationPointsDFS(int v, int index, vector<int>& num, vector<int>& low, unordered_set<int>& s, set<int>& ap, bool first){
-    nodes[v].visited = true;
-    num[v] = index;
-    low[v] = index;
-    index++;
-    bool is_ap = false;
-    s.insert(v);
-    int n_adj = 0;
-    for (const auto& e : nodes[v].adj) {
-        int w = e.dest;
-        if (!nodes[w].visited) {
-            n_adj++;
-            articulationPointsDFS(w, index, num, low, s, ap);
-            low[v] = min(low[v], low[w]);
-            if(low[w] >= num[v]) {
-                is_ap = true;
-                ap.insert(v);
-            }
-        }
-        else if (s.find(w) != s.end())
-            low[v] = min(low[v], num[w]);
-    }
-    if(is_ap && first && n_adj <= 1)
-        ap.erase(v);
-    s.erase(v);
-}
-
-set<int> Graph::articulationPointsDFS(int v, int index, vector<int>& num, vector<int>& low, unordered_set<int>& s, set<int>& ap, set<string>& airlines_to_consider, bool first){
-    nodes[v].visited = true;
-    num[v] = index;
-    low[v] = index;
-    index++;
-    bool is_ap = false;
-    s.insert(v);
-    int n_adj = 0;
-    for (const auto& e : nodes[v].adj) {
-        set<string> intersection;
-        set_intersection(e.airlines.begin(), e.airlines.end(), airlines_to_consider.begin(), airlines_to_consider.end(), inserter(intersection, intersection.begin()));
-        if (intersection.empty())  {
-            continue;
-        }
-        int w = e.dest;
-        if (!nodes[w].visited) {
-            n_adj++;
-            set<int> temp = articulationPointsDFS(w, index, num, low, s, ap, airlines_to_consider);
-            for(int t : temp) {
-                ap.insert(t);
-            }
-            low[v] = min(low[v], low[w]);
-            if (low[w] >= num[v] && !first) {
-                is_ap = true;
-                ap.insert(v);
-            }
-        }
-        if (is_ap && first && n_adj <= 1) {
-            ap.erase(v);
-        }
-        else if (s.find(w) != s.end()) {
-            low[v] = min(low[v], num[w]);
-        }
-    }
-    s.erase(v);
-    return ap;
-}
-
-list<list<pair<int, string>>> Graph::least_flights(const vector<int>& sources, const vector<int>& destination) {
-    for (int j = 1; j <= n; ++j) {
-        nodes[j].visited = false;
-        nodes[j].distance = -1;
-    }
-    vector<vector<pair<int, string>>> previous(n + 1, vector<pair<int, string>>());
-    queue<int> q;
-    for(const auto& s : sources) {
-        q.push(s);
-        nodes[s].visited = true;
-        nodes[s].distance = 0;
-    }
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-        for (const auto& e : nodes[u].adj) {
-            int w = e.dest;
-            if (!nodes[w].visited) {
-                q.push(w);
-                nodes[w].visited = true;
-                nodes[w].distance = nodes[u].distance + 1;
-                previous[w].emplace_back(u, *e.airlines.begin());
-            } else if (nodes[w].distance == nodes[u].distance + 1) {
-                previous[w].emplace_back(u, *e.airlines.begin());
-            }
-        }
-    }
-    list<pair<int, string>> all_min;
-    int min_dist = INT_MAX;
-    for (int d : destination) {
-        if (nodes[d].distance != -1 && nodes[d].distance < min_dist) {
-            min_dist = nodes[d].distance;
-        }
-    }
-    for (int d : destination) {
-        if (nodes[d].distance == min_dist) {
-            all_min.emplace_back(d, "");
-        }
-    }
-    list<list<pair<int, string>>> paths;
-    if (min_dist == INT_MAX) return paths;
-    for (const auto& d : all_min) {
-        list<pair<int, string>> path;
-        path.push_back(d);
-        paths.push_back(path);
-    }
-    for (int i = 0; i < min_dist; ++i) {
-        list<list<pair<int, string>>> new_paths;
-        for (const auto& p : paths) {
-            for (const auto& node : previous[p.front().first]) {
-                list<pair<int, string>> new_path = p;
-                new_path.push_front(node);
-                new_paths.push_back(new_path);
-            }
-        }
-        paths = new_paths;
-    }
-    return paths;
-}
-
-list<list<pair<int, string>>> Graph::least_flights(const vector<int>& sources, const vector<int>& dest, const set<string> &airlines_to_consider) {
-    for (int j = 1; j <= n; ++j) {
-        nodes[j].visited = false;
-        nodes[j].distance = -1;
-    }
-    vector<vector<pair<int, string>>> previous(n + 1, vector<pair<int, string>>());
-    queue<int> q;
-    for(const auto& s : sources) {
-        q.push(s);
-        nodes[s].visited = true;
-        nodes[s].distance = 0;
-    }
+void Graph::bfs_diameter(const string &airport_code) {
+    setUnvisited();
+    queue<string> q;
+    q.push(airport_code);
+    nodes[airport_code].visited = true;
+    nodes[airport_code].travel_from_src.push_back({ { nodes[airport_code].airport, "" } });
     while(!q.empty()) {
-        int u = q.front(); q.pop();
-        for (const auto& e : nodes[u].adj) {
-            set<string> intersection;
-            set_intersection(e.airlines.begin(), e.airlines.end(), airlines_to_consider.begin(), airlines_to_consider.end(), inserter(intersection, intersection.begin()));
-            if (intersection.empty()) {
-                continue;
-            }
-            int w = e.dest;
-            if (!nodes[w].visited) {
+        std::string u = q.front();
+        q.pop();
+        Node& node = nodes[u];
+        for (const auto &e: node.adj) {
+            std::string w = e.dest;
+            if(!nodes[w].visited) {
                 q.push(w);
                 nodes[w].visited = true;
-                nodes[w].distance = nodes[u].distance + 1;
-                previous[w].emplace_back(u, *intersection.begin());
-            } else if (nodes[w].distance == nodes[u].distance + 1) {
-                previous[w].emplace_back(u, *intersection.begin());
+                nodes[w].travel_from_src=node.travel_from_src;
+                nodes[w].travel_from_src.front().emplace_back(nodes[w].airport, e.airline);
             }
         }
     }
-    list<pair<int, string>> all_min;
-    int min_dist = INT_MAX;
-    for (int d : dest) {
-        if (nodes[d].distance != -1 && nodes[d].distance < min_dist) {
-            min_dist = nodes[d].distance;
-        }
-    }
-    for (int d : dest) {
-        if (nodes[d].distance == min_dist) {
-            all_min.emplace_back(d, "");
-        }
-    }
-    list<list<pair<int, string>>> paths;
-    if (min_dist == INT_MAX) {
-        return paths;
-    }
-    for(auto& d : all_min) {
-        list<pair<int, string>> path;
-        path.push_back(d);
-        paths.push_back(path);
-    }
-    for (int i = 0; i < min_dist; ++i) {
-        list<list<pair<int, string>>> new_paths;
-        for (const auto& p : paths) {
-            for (const auto& node : previous[p.front().first]) {
-                list<pair<int, string>> new_path = p;
-                new_path.push_front(node);
-                new_paths.push_back(new_path);
-            }
-        }
-        paths = new_paths;
-    }
-    return paths;
 }
 
-list<list<pair<int, string>>> Graph::least_flights_with_distance(const vector<int>& src, const vector<int>& dest, const set<string>& airlines_to_consider) {
-    for (int i = 1; i <= n; i++) {
-        nodes[i].distance = INT_MAX;
-        nodes[i].visited = false;
+void Graph::shortestPath(const std::string &airport_code) {
+    std::priority_queue<std::pair<std::string, double>,std::vector<std::pair<std::string, double>>, CompareDistance> q;
+
+    setUnvisited();
+    nodes[airport_code].src_distance = 0;
+    nodes[airport_code].travel_from_src.push_back({{nodes[airport_code].airport,""}});
+
+    for(auto &node: nodes) {
+        if(node.first != airport_code)
+            node.second.src_distance = INF;
+        else
+            q.emplace( node.first, node.second.src_distance );
     }
-    queue<int> q;
-    vector<pair<int, string>> prev(n+1, {0, ""});
-    for (const int & i : src) {
-        nodes[i].distance = 0;
-        q.push(i);
-    }
-    while (!q.empty()) {
-        int v = q.front();
-        q.pop();
-        if (nodes[v].visited) continue;
-        nodes[v].visited = true;
-        for (const auto& e : nodes[v].adj) {
-            set<string> intersection;
-            set_intersection(e.airlines.begin(), e.airlines.end(), airlines_to_consider.begin(), airlines_to_consider.end(), inserter(intersection, intersection.begin()));
-            if (intersection.empty()) {
+
+    while(!q.empty()) {
+        std::pair<std::string, double> u = q.top(); q.pop();
+        Node& node = nodes[u.first];
+        for(auto &e: node.adj) {
+            if(!wanted_airlines.empty() && wanted_airlines.find(e.airline) == wanted_airlines.end())
                 continue;
+            double alt = node.src_distance + e.distance;
+            Node &v = nodes[e.dest];
+            if(alt < v.src_distance) {
+                v.travel_from_src.clear();
+                for(auto n : node.travel_from_src) {
+                    n.emplace_back(v.airport,e.airline);
+                    v.travel_from_src.push_back(n);
+                }
+                v.src_distance = alt;
+                q.emplace( e.dest, alt );
             }
-            int w = e.dest;
-            if (nodes[w].distance > nodes[v].distance + e.weight) {
-                nodes[w].distance = nodes[v].distance + e.weight;
-                prev[w] = {v, *intersection.begin()};
-                q.push(w);
+            else if (alt<INF && alt == v.src_distance ){
+                bool flag = true;
+                for (auto n : v.travel_from_src) {
+                    auto it = n.end();
+                    std::advance(it,-2);
+                    if (it->first==node.airport) {
+                        flag= false;
+                        break;
+                    }
+                }
+                if (!flag) continue;
+                for(auto n : node.travel_from_src) {
+                    n.emplace_back(v.airport,e.airline);
+                    v.travel_from_src.push_back(n);
+                }
             }
         }
     }
-    list<list<pair<int, string>>> paths;
-    for (const int & i : dest) {
-        if (nodes[i].distance == INT_MAX) {
-            continue;
-        }
-        list<pair<int, string>> path;
-        pair<int, string> v = {i, ""};
-        while (v.first != 0) {
-            path.push_front(v);
-            v = prev[v.first];
-        }
-        paths.push_back(path);
-    }
-    for (auto& p : paths) {
-        p.emplace_front(nodes[p.back().first].distance, "");
-    }
-    return paths;
 }
 
-list<list<pair<int, string>>> Graph::least_flights_with_distance(const vector<int>& src, const vector<int>& dest) {
-    for (int i = 1; i <= n; i++) {
-        nodes[i].distance = INT_MAX;
-        nodes[i].visited = false;
+void Graph::addNode(const string& airport_code, const Airport& airport) {
+    nodes.insert({ airport_code, { airport, {}, false, INF, std::list<std::list<std::pair<Airport,std::string>>>() } });//n
+}
+
+void Graph::addEdge(const std::string& source_airport, const std::string& target_airport, const std::string& airline) {
+    auto s_airport = nodes.find(source_airport);
+    auto t_airport = nodes.find(target_airport);
+    if(s_airport == nodes.end() || t_airport == nodes.end() || s_airport == t_airport) return;
+
+    double distance = haversine(s_airport->second.airport, t_airport->second.airport);
+
+    s_airport->second.adj.push_back({ target_airport, airline, distance });
+
+    if(!this->has_dir)
+        t_airport->second.adj.push_back({ source_airport, airline, distance });
+}
+
+void Graph::setUnvisited() {
+    for(auto &it: nodes) {
+        it.second.visited = false;
+        it.second.travel_from_src.clear();
     }
-    queue<int> q;
-    vector<pair<int, string>> prev(n + 1, {0, ""});
-    for (const int &i: src) {
-        nodes[i].distance = 0;
-        q.push(i);
+}
+
+void Graph::dfs(const std::string &airport_code) {
+    std::cout << nodes[airport_code].airport.getCode() << '\n';
+    nodes[airport_code].visited = true;
+
+    for(const auto &e: nodes[airport_code].adj) {
+        Node& target_node = nodes[e.dest];
+
+        if(!target_node.visited) {
+            dfs(e.dest);
+        }
     }
-    //Dijkstra's algorithm
-    while (!q.empty()) {
-        int v = q.front();
-        q.pop();
-        if (nodes[v].visited) continue;
-        nodes[v].visited = true;
-        for (const auto &e: nodes[v].adj) {
-            int w = e.dest;
-            if (nodes[w].distance > nodes[v].distance + e.weight) {
-                nodes[w].distance = nodes[v].distance + e.weight;
-                prev[w] = {v, *e.airlines.begin()};
+}
+
+void Graph::bfs(const std::string &airport_code) {
+    setUnvisited();
+
+    std::queue<std::string> q; // queue of unvisited nodes
+    q.push(airport_code);
+    nodes[airport_code].visited = true;
+    nodes[airport_code].travel_from_src.push_back({ { nodes[airport_code].airport, "" } });
+
+    while(!q.empty()) {
+        std::string u = q.front(); q.pop();
+
+        Node& node = nodes[u];
+        // std::cout << node.airport.getCode() << '\n';
+
+        for(const auto &e: node.adj) {
+            if(!wanted_airlines.empty() && wanted_airlines.find(e.airline) == wanted_airlines.end())
+                continue;
+            std::string w = e.dest;
+
+            if(!nodes[w].visited) {
                 q.push(w);
+                nodes[w].visited = true;
+                for(auto n: node.travel_from_src) {
+                    n.emplace_back(nodes[w].airport, e.airline);
+                    nodes[w].travel_from_src.push_back(n);
+                }
+            }
+            else if (node.travel_from_src.front().size()+1==nodes[w].travel_from_src.front().size()){
+                bool flag = true;
+                for (auto n : nodes[w].travel_from_src) { //if all possibilities wanted comment this for loop
+                    auto it = n.end();
+                    std::advance(it,-2);
+                    if (it->first==node.airport) {
+                        flag= false;
+                        break;
+                    }
+                }
+                if (!flag) continue;
+                for(auto n: node.travel_from_src) {
+                    n.emplace_back(nodes[w].airport,e.airline);
+                    nodes[w].travel_from_src.push_back(n);
+                }
             }
         }
     }
-    list<list<pair<int, string>>> paths;
-    for (const int &i: dest) {
-        if (nodes[i].distance == INT_MAX) {
-            continue;
-        }
-        list<pair<int, string>> path;
-        pair<int, string> v = {i, ""};
-        while (v.first != 0) {
-            path.push_front(v);
-            v = prev[v.first];
-        }
-        paths.push_back(path);
-    }
-    for (auto &p: paths) {
-        p.emplace_front(nodes[p.back().first].distance, "");
-    }
-    return paths;
 }
+
+Airport Graph::getAirport(const std::string &airport_code) const {
+    return nodes.at(airport_code).airport;//n
+}
+
+int Graph::getMinFlights(const std::string &source_airport, const std::string &target_airport) {
+    bfs(source_airport);
+    return (int) nodes[target_airport].travel_from_src.front().size() - 1;
+}
+
+std::list<std::list<std::pair<Airport,std::string>>> Graph::getTraveledAirports(const std::string &source_airport, const std::string &target_airport) {
+    bfs(source_airport);
+    return nodes[target_airport].travel_from_src;
+}
+
+double Graph::getShortestPath(const std::string &source_airport, const std::string &target_airport) {
+    return nodes.at(target_airport).src_distance;
+}
+
+std::list<std::list<std::pair<Airport,std::string>>> Graph::getTraveledAirportsByDistance(const std::string &source_airport, const std::string &target_airport) {
+    shortestPath(source_airport);
+    return nodes[target_airport].travel_from_src;
+}
+
+std::string Graph::findAirport(double latitude, double longitude){
+    std::string code;
+    double latitude_min = INT64_MAX, longitude_min = INT64_MAX;
+    for (const auto& node: nodes) {//V
+        if (haversine(latitude,node.second.airport.getLatitude(),longitude,node.second.airport.getLongitude())<haversine(latitude,latitude_min,longitude,longitude_min)) {//log(n)
+            code = node.second.airport.getCode();//1
+            latitude_min=node.second.airport.getLatitude();//1
+            longitude_min=node.second.airport.getLongitude();//1
+        }
+    }
+    return code;
+}
+
+std::list<std::string> Graph::findAirports(double latitude, double longitude, int dist){
+    std::list<std::string> airports ;
+    for (const auto& node: nodes) {
+        if (haversine(latitude,node.second.airport.getLatitude(),longitude,node.second.airport.getLongitude())<dist) {
+            airports.push_back(node.first);
+        }
+    }
+    return airports;
+}
+
+std::list<std::string> Graph::findAirportByCity(const std::string &city) {
+    std::list<std::string> airports;
+    for (const auto& node:nodes) {//n
+        if(node.second.airport.getCity() == city)
+            airports.push_back(node.first);//1
+    }
+    return airports;
+}
+
+int Graph::getNumberOfFlights(const std::string &airport_code) const {
+    return (int) nodes.at(airport_code).adj.size();
+}
+
+std::set<std::string> Graph::getAirlinesFromAirport(const std::string &airport_code) const {
+    std::set<std::string> airlines;
+    for(auto &a: nodes.at(airport_code).adj)//n
+        airlines.insert(a.airline);//log(n)
+
+    return airlines;
+}
+
+std::list<Airport> Graph::getAirportsReached(const std::string &source_airport, int k) {
+    bfs(source_airport);
+
+    std::list<Airport> airports;
+    for(const auto &n: nodes) {
+        const Node &node = n.second;
+        if(node.airport.getCode() == source_airport)
+            continue;
+        if(node.travel_from_src.front().size() - 1 <= k)
+            airports.push_back(node.airport);
+    }
+
+    return airports;
+}
+
+std::set<std::string> Graph::getCitiesReached(const std::string &source_airport, int k) {
+    bfs(source_airport);
+
+    std::set<std::string> cities;
+    for(const auto &n: nodes) {
+        const Node &node = n.second;
+        if(node.airport.getCode() == source_airport)
+            continue;
+        if(node.travel_from_src.front().size() - 1 <= k)
+            cities.insert(node.airport.getCity());
+    }
+
+    return cities;
+}
+
+std::set<std::string> Graph::getCountriesReached(const std::string &source_airport, int k) {
+    bfs(source_airport);
+
+    std::set<std::string> countries;
+    for(const auto &n: nodes) {
+        const Node &node = n.second;
+        if(node.airport.getCode() == source_airport)
+            continue;
+        if(node.travel_from_src.front().size() - 1 <= k)
+            countries.insert(node.airport.getCountry());
+    }
+
+    return countries;
+}
+
+std::set<std::string> Graph::getArrivalAirports(const std::string &airport_code) const {
+    std::set<std::string> airports;
+    for(auto &a: nodes.at(airport_code).adj)//v
+        airports.insert(a.dest);//log n
+
+    return airports;
+}
+
+std::set<std::string> Graph::getArrivalCities(const std::string &airport_code) const {
+    std::set<std::string> cities;
+    for(const Edge &edge: nodes.at(airport_code).adj)//n
+        cities.insert(nodes.at(edge.dest).airport.getCity());//log n
+
+    return cities;
+}
+
+std::set<std::string> Graph::getArrivalCountries(const std::string &airport_code) const {
+    std::set<std::string> countries;
+    for(const Edge &edge: nodes.at(airport_code).adj)//n
+        countries.insert(nodes.at(edge.dest).airport.getCountry());//log n
+
+    return countries;
+}
+
+bool Graph::checkIfAirportExists(const std::string &airport_code) const {
+    return nodes.find(airport_code) != nodes.end();
+}
+
+void Graph::addWantedAirline(const std::string &airline_code) {
+    wanted_airlines.insert(airline_code);
+}
+
+bool Graph::removeWantedAirline(const std::string &airline_code) {
+    if(wanted_airlines.find(airline_code) == wanted_airlines.end())
+        return false;
+
+    wanted_airlines.erase(airline_code);
+    return true;
+}
+
+void Graph::clearWantedAirline() {
+    wanted_airlines.clear();
+}
+
+std::unordered_set<std::string> Graph::getWantedAirlines() const {
+    return wanted_airlines;
+}
+

@@ -1,226 +1,345 @@
 #ifndef AED_GRAPHS_GRAPH_H
 #define AED_GRAPHS_GRAPH_H
 
+#include "Airport.h"
+#include "Airline.h"
+#include "Haversine.h"
 #include <list>
-#include <vector>
-#include <queue>
-#include <iostream>
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
-#include <algorithm>
-#include "Airport.h"
+#include <limits>
+#include <iostream>
+#include <queue>
 
 using namespace std;
 
+#define INF numeric_limits<double>::max()
+
 /**
- * Classe usada para representar um grafo dirigido.
- * @details Esta classe representa aeroportos e os voos entre eles a partir de um vetor de nós, onde cada nó possui uma lista de adjacências.
+ * Represents a Graph.
  */
 class Graph {
-public:
+private:
     /**
-     * Struct que representa um voo.
-     * @details Contém o vértice de destino, o peso da aresta e um conjunto de airlines que realizam o voo.
+     * Represents the edges of the graph.
      */
     struct Edge {
-        int dest;
-        int weight;
-        set<string> airlines;
+        /**
+         * Destination Node
+         */
+        string dest;
+        /**
+         *  Airline in charge of the flight
+         */
+        string airline;
+        /**
+         *  Distance between two nodes.
+         */
+        double distance;
     };
     /**
-     * Struct que representa um aeroporto.
-     * @details Contém uma lista de voos que saem do aeroporto, um booleano que indica se o aeroporto já foi visitado numa pesquisa
-     * e um inteiro que indica a distância do aeroporto à origem da pesquisa.
+     * Represents the content of each node.
      */
     struct Node {
+        /**
+         *  Airport
+         */
+        Airport airport;
+        /**
+         *  List of outgoing edges, to adjacent nodes.
+         */
         list<Edge> adj;
+        /**
+         *  Verifies if the node has been visited on a previous search.
+         * @details This variable set to True means that the node has been visited and False otherwise.
+         */
         bool visited;
-        int distance;
+        /**
+         *  Distance to the source node.
+         * @details This can be used to find the shortest path to node.
+         */
+        double src_distance;
+        /**
+         *  A list that stores another list with all the airports and airlines from the source all the way to the target node.
+         */
+        list<list<pair<Airport, string>>> travel_from_src;
     };
-    /// Número de nós do grafo.
-    int n;
-    /// Vetor de nós do grafo.
-    vector<Node> nodes;
     /**
-     * Construtor default da classe Graph.
-     * @Complexity Complexidade temporal: O(1)
-     * @details Cria um grafo com 0 nós.
+     *  Variable that sets the Graph to be directed or undirected.
+     * @details This variable set to True means the Graph is directed and False otherwise.
      */
-    Graph();
+    bool has_dir;
     /**
-     * Construtor classe Graph.
-     * @Complexity Complexidade temporal: O(1)
-     * @details Cria um grafo com n nós.
-     * @param n Número de nós do grafo.
+     *  A hash table.
+     * @details When searching the Time Complexity is O(1).
      */
-    explicit Graph(int nodes);
+    unordered_map<string, Node> nodes;
     /**
-     * Adiciona um voo ao grafo.
-     * @Complexity Complexidade temporal: O(|E|)
-     * @param src Aeroporto de origem da aresta.
-     * @param dest Aeroporto de destino da aresta.
-     * @param weight Peso da aresta.
-     * @param airline Airline que realiza o voo.
+     *  Set of airlines favoured by the client.
+     * @details Can be empty.
      */
-    void addEdge(int src, int dest, string airline, int weight = 1);
+    unordered_set<string> wanted_airlines;
     /**
-     * Retorna o grau de um nó.
-     * @Complexity Complexidade temporal: O(1)
-     * @param i Nó do qual se quer saber o grau.
-     * @return Grau do nó.
+     * @brief Find the shortest path using Dijkstra Algorithm.
+     * @details Time Complexity - O(|E| log(|V|)).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Code of the target Airport.
      */
-    int getOutDegree(int i);
+    void shortestPath(const string& airport_code);
+public:
+    //"Constructors"
     /**
-     * Retorna o número de companhias aéreas diferentes que voam a partir de um aeroporto.
-     * @Complexity Complexidade temporal: O(|E| * |Airlines|)
-     * @param i Nó do qual se quer saber o número de companhias aéreas.
-     * @return Número de companhias aéreas.
+     * @brief Creates a new Graph.
+     * @details The Graph is undirected by default.
+     * @details To change it use Graph(true) in initialization.
+     * @details Constructor of the Graph class.
+     * @param dir
      */
-    int getAirlinesNumber(int i);
+    explicit Graph(bool dir = false);
     /**
-     * Retorna o número de destinos diferentes alcançáveis a partir de um aeroporto.
-     * @Complexity Complexidade temporal: O(|E| * |Airlines|)
-     * @param i Nó de destino.
-     * @return Número de destinos diferentes.
+     * @brief Add a node to the Graph using the airport code as a key and the whole airport class as the value.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport's code
+     * @param airport All of the airport information.
      */
-    int getDestinationsNumber(int i);
+    void addNode(const std::string &airport_code, const Airport &airport);
     /**
-     * Retorna o número de destinos em países diferentes alcançáveis a partir de um aeroporto.
-     * @Complexity Complexidade temporal: O(|E| * |Airlines|)
-     * @param i Nó de destino.
-     * @param airports
-     * @return Número de destinos com países diferentes.
+     * @brief Add an edge from a source airport to a target airport using their distance as the weight.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param source_airport The source airport.
+     * @param target_airport The target airport.
+     * @param airline Distance between the two airports.
      */
-    int getDestinationsCountries(int i, unordered_map<int, Airport> &airports);
+    void addEdge(const std::string& source_airport, const std::string& target_airport, const std::string& airline);
     /**
-     * Retorna o número de arestas do grafo.
-     * @Complexity Complexidade temporal: O(|V|)
-     * @return Número de arestas do grafo.
+     * @brief This function sets all the nodes to unvisited state.
+     * @details Time Complexity - O(V).
+     * @details V is the number of vertices/nodes.
      */
-    int getNumEdges();
+    void setUnvisited();
     /**
-     * Retorna o número de companhias aéreas.
-     * @Complexity Complexidade temporal: O(|V| + |E| * |Airlines|)
-     * @return Número de companhias aéreas.
+     * @brief Function used to do a Depth-First Search (aka DFS).
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport code to be searched.
      */
-    int getCompanies();
+    void dfs(const std::string &airport_code);
     /**
-     * Retorna o diâmetro do grafo.
-     * @details Para obter o diametro do grafo, é necessário calcular o menor caminho entre todos os pares de nós.
-     * Para isso é necesário um BFS para cada nó.
-     * @Complexity Complexidade temporal: O(|V| * (|V| + |E|)).
-     * @return Diâmetro do grafo.
+     * @brief Function used to do a Breadth-First Search (aka BFS).
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport code to be searched.
      */
-    int getDiameter();
+    void bfs(const std::string &airport_code);
     /**
-     * Retorna os destinos alcançáveis a partir de um aeroporto com r voos ou menos.
-     * @details É utilizado um simples BFS, adicionando à fila todos os nós com distância <= r.
-     * @Complexity Complexidade temporal: O(|V|+|E|)
-     * @param src
-     * @param r
-     * @return set<int> com os destinos alcançáveis.
+     * @brief Gets the Airport class.
+     * @details Time Complexity - O(1).
+     * @param airport_code Airport's code.
+     * @return All of the airport information.
      */
-    set<int> getDestinations(int src, int r);
+    Airport getAirport(const std::string &airport_code) const;
     /**
-     * Método normal que devolve o atributo nodes
-     * @Complexity Complexidade temporal: O(1)
-     * @return Vector com os nós do grafo.
+     * Gets the minimum of flights needed to go from a source airport to a said target airport.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param source_airport Source airport's code.
+     * @param target_airport Target airport's code.
+     * @return Lowest number of flights needed.
      */
-    vector<Node> getNodes() const;
+    int getMinFlights(const std::string &source_airport, const std::string &target_airport);
     /**
-     * @brief Função usada para determinar os i aeroportos com mais voos de uma rede.
-     * @details Esta função percorre cada nó (aeroporto) da rede e determina o número de voos que saem desse aeroporto,
-     * com auxílio da função getDestinationNumber(). Guarda todos os resultados num vetor e
-     * ordena por ordem decrescente de voos e retorna apenas os i primeiros.
-     * @Complexity Complexidade temporal: O(|V| * |E| * |Airlines|)
-     * @param i Número de aeroportos a retornar.
-     * @return Vetor de tamanho i com os pares aeroporto-voos que têm maior número de voos.
+     * @brief Gets a list of every traveled airport in a trip from a source airport to a target airport.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details Uses the minimum amount of flights as a criteria.
+     * @param source_airport Source airport's code.
+     * @param target_airport Target airport's code.
+     * @return List of all airports the client can travel through in a trip.
      */
-    vector<pair<int, int>> getTopAirports(int i);
+    std::list<std::list<std::pair<Airport,std::string>>> getTraveledAirports(const std::string &source_airport, const std::string &target_airport);
     /**
-     * @details Esta função utiliza um DFS para determinar os pontos de articulação da rede.
-     * @Complexity Complexidade temporal: O(|V| + |E|)
-     * @return set<int> com os pontos de articulação.
+     * @brief Search the airport located in fixed GPS coordinates.
+     * @details Time Complexity - O(V log(n)).
+     * @details V is the number of vertices/nodes.
+     * @param latitude Latitude of the airport.
+     * @param longitude Longitude of the airport.
+     * @return Airport's code.
      */
-    set<int> getArticulationPoints();
+    std::string findAirport(double latitude, double longitude);
     /**
-     * @details Esta função utiliza um DFS para determinar os pontos de articulação da rede.
-     * Mas para cada chamada do DFS também é feita uma interseção com o set de companhias aéreas da aresta.
-     * @Complexity Complexidade temporal é: O(|V| + |E| * |Airlines|)
-     * @param airlines_to_consider Companhias aéreas a considerar.
-     * @return set<int> com os pontos de articulação.
+     * @brief Search all the airports located in a city.
+     * @details Time Complexity - O(V).
+     * @details V is the number of vertices/nodes.
+     * @param city City where the airports are located.
+     * @return List of all the airports located within the city.
      */
-    set<int> getArticulationPoints(set<string> &airlines_to_consider);
+    std::list<std::string> findAirportByCity(const std::string &city);
     /**
-     * @details Esta função utiliza um BFS para determinar os caminhos mais curtos entre os aeroportos de origem e os de destino.
-     * São passados vários aeroportos para permitir pesquisas a partir e para cidades com mais de um aeroporto ou pontos proximos de dadas coordenadas.
-     * @Complexity Complexidade temporal: O(|V| + |E|)
-     * @param sources
-     * @param destination
-     * @return list<list<int>> com os caminhos mais curtos (em número de voos).
+     * @brief Search the airport located within a certain distance from fixed GPS coordinates.
+     * @details Time Complexity - O(V log(n)).
+     * @details V is the number of vertices/nodes.
+     * @param latitude Latitude of the airport.
+     * @param longitude Longitude of the airport.
+     * @param dist Distance where airports can be.
+     * @return All of the airport information.
      */
-    list<list<pair<int, string>>> least_flights(const vector<int>& sources, const vector<int>& destination);
+    std::list<std::string> findAirports(double latitude, double longitude, int dist);
     /**
-     * Esta função utiliza um BFS para determinar os caminhos mais curtos entre os aeroportos de origem e os de destino, considerando apenas
-     * as companhias aéreas passadas.
-     * São passados vários aeroportos para permitir pesquisas a partir e para cidades com mais de um aeroporto ou pontos proximos de dadas coordenadas.
-     * @Complexity Complexidade temporal: O(|V| + |E| * |Airlines|)
-     * @param sources
-     * @param destination
-     * @param airlines_to_consider
-     * @return list<list<int>> com os caminhos mais curtos (em número de voos), considerando apenas as companhias aéreas passadas.
+     * @brief Gets the number of kilometers traveled in a straight line from a source airport to a target airport.
+     * @details Time Complexity- O(|E| log(|V|)).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param source_airport Source airport's code.
+     * @param target_airport Target airport's code.
+     * @return Number of kilometers traveled in a straight line between two airports.
      */
-    list<list<pair<int, string>>> least_flights(const vector<int>& sources, const vector<int>& dest, const set<string> &airlines_to_consider);
+    double getShortestPath(const std::string &source_airport, const std::string &target_airport);
     /**
-     * @brief Retorna os caminhos mais curtos em distância física entre os aeroportos de origem e os de destino.
-     * Esta função utiliza o algoritmo de Dijkstra (sem priority queue) para determinar os caminhos mais curtos entre os aeroportos de origem e os de destino.
-     * São passados vários aeroportos para permitir pesquisas a partir e para cidades com mais de um aeroporto ou pontos proximos de dadas coordenadas.
-     * @Complexity Complexidade temporal: O(|V| + |E|), o mesmo que o BFS.
-     * @param sources
-     * @param destination
-     * @return list<list<int>> com os caminhos mais curtos (em distância).
+     * @brief Gets the list of airports and airlines traveled through in a trip between 2 airports.
+     * @details Time Complexity- O(|E| log(|V|)).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param source_airport Source airport's code.
+     * @param target_airport Target airport's code.
+     * @return A list that stores another list with all the airports and airlines traveled from the source airport all the way to the target airport.
      */
-    list<list<pair<int, string>>> least_flights_with_distance(const vector<int>& src, const vector<int>& dest);
+    std::list<std::list<std::pair<Airport,std::string>>> getTraveledAirportsByDistance(const std::string &source_airport, const std::string &target_airport);
     /**
-     * Esta função utiliza o algoritmo de Dijkstra (sem priority queue) para determinar os caminhos mais curtos entre os aeroportos de origem e os de destino.
-     * São passados vários aeroportos para permitir pesquisas a partir e para cidades com mais de um aeroporto ou pontos proximos de dadas coordenadas.
-     * São considerados apenas voos feitos pelas companhias aéreas passadas.
-     * @Complexity Complexidade temporal: O(|V| + |E| * |Airlines|)
-     * @param sources
-     * @param destination
-     * @param airlines_to_consider
-     * @return list<list<int>> com os caminhos mais curtos (em distância), considerando apenas as companhias aéreas passadas.
+     * @brief Gets the total number of flights connected to an airport.
+     * @details Time Complexity - O(1).
+     * @param airport_code Airport's code.
+     * @return Total number of flights from a single airport.
      */
-    list<list<pair<int, string>>> least_flights_with_distance(const vector<int>& src, const vector<int>& dest, const set<string>& airlines_to_consider);
+    int getNumberOfFlights(const std::string &airport_code) const;
     /**
-     * Esta função utiliza apenas um DFS para determinar os pontos de articulação da rede.
-     * Os pontos são guardados num set passado por referência.
-     * @Complexity Complexidade temporal: O(|V| + |E|)
-     * @param v
-     * @param index
-     * @param num
-     * @param low
-     * @param s
-     * @param ap
-     * @param first
+     * @brief Gets all of the airlines connected to an airport.
+     * @details Time Complexity- O(|E| log(|V|)).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport's code.
+     * @return Set with all airlines(airline's code) connected to a certain airport.
      */
-    void articulationPointsDFS(int v, int index, vector<int>& num, vector<int>& low, unordered_set<int>& s, set<int>& ap, bool first = false);
+    std::set<std::string> getAirlinesFromAirport(const std::string &airport_code) const;
     /**
-     * Esta função utiliza apenas um DFS para determinar os pontos de articulação da rede de um conjunto de companhias aéreas.
-     * Os pontos são guardados num set.
-     * @Complexity Complexidade temporal: O(|V| + |E| * |Airlines|)
-     * @param v
-     * @param index
-     * @param num
-     * @param low
-     * @param s
-     * @param ap
-     * @param airlines_to_consider
-     * @param first
-     * @return set<int> com os pontos de articulação da rede de um conjunto de companhias aéreas.
+     * @brief Gets all airports that can be reached from a source airport in a fixed number of flights.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param source_airport Source airport's code.
+     * @param k Number of flights.
+     * @return List of airports reachable within a "k" number of flights.
      */
-    set<int> articulationPointsDFS(int v, int index, vector<int>& num, vector<int>& low, unordered_set<int>& s, set<int>& ap, set<string> &airlines_to_consider, bool first = false);
+    std::list<Airport> getAirportsReached(const std::string &source_airport, int k);
+    /**
+     * @brief Gets all cities that can be reached from a source airport in a fixed number of flights.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param source_airport Source airport's code.
+     * @param k Number of flights.
+     * @return List of cities reachable within a "k" number of flights.
+     */
+    std::set<std::string> getCitiesReached(const std::string &source_airport, int k);
+    /**
+     * @brief Gets all countries that can be reached from a source airport in a fixed number of flights.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param source_airport Source airport's code.
+     * @param k Number of flights.
+     * @return List of countries reachable within a "k" number of flights.
+     */
+    std::set<std::string> getCountriesReached(const std::string &source_airport, int k);
+    /**
+     * @brief Gets all airports that can be reached with 1 flight from a source airport.
+     * @details Time Complexity- O(|E| log(|V|)).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport's code.
+     * @return List of airports reachable within 1 flight.
+     */
+    std::set<std::string> getArrivalAirports(const std::string &airport_code) const;
+    /**
+     * @brief Gets all cities that can be reached with 1 flight from a source airport.
+     * @details Time Complexity- O(|E| log(|V|)).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport's code.
+     * @return List of cities reachable within 1 flight.
+     */
+    std::set<std::string> getArrivalCities(const std::string &airport_code) const;
+    /**
+     * @brief Gets all countries that can be reached with 1 flight from a source airport.
+     * @details Time Complexity- O(|E| log(|V|)).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport's code.
+     * @return List of countries reachable within 1 flight.
+     */
+    std::set<std::string> getArrivalCountries(const std::string &airport_code) const;
+    /**
+     * @brief Checks if airport exists in nodes hash table.
+     * @details Time Complexity- O(V).
+     * @details V is the number of vertices/nodes.
+     * @param airport_code Airport's code.
+     * @return True-If the airport exists.
+     * @return False-If the airport doesn't exist.
+     */
+    bool checkIfAirportExists(const std::string &airport_code) const;
+    /**
+     * @brief Adds a airline to the favourite airlines list.
+     * @details Time Complexity- O(log(n)).
+     * @details V is the number of vertices/nodes.
+     * @param airline_code Airline's code.
+     */
+    void addWantedAirline(const std::string &airline_code);
+    /**
+     * @brief Removes the airline from the favourite airlines list.
+     * @details Time Complexity- O(n).
+     * @param airline_code Airline's code.
+     * @return True-If it was successfully removed.
+     * @return True-If the airline selected was not in the favourites list.
+     */
+    bool removeWantedAirline(const std::string &airline_code);
+    /**
+     * @brief Clears the favourite airlines list.
+     * @details Time Complexity- O(n).
+     */
+    void clearWantedAirline();
+    /**
+     * @brief Gets the full list of favoured airlines.
+     * @details Time Complexity - O(1).
+     * @return Set of all the airlines included in the favourite list.
+     */
+    std::unordered_set<std::string> getWantedAirlines() const;
+    /**
+     * @brief Gives the size of the Graph nodes.
+     * @details The number of nodes is equal to the number of airports.
+     * @details Time Complexity- O(1).
+     * @return Total number of nodes in the Graph.
+     */
+    int size_Nodes();
+    /**
+     * @brief Gives the size of the Graph edges.
+     * @details The number of edges is equal to the number of flights.
+     * @details Time Complexity- O(V).
+     * @details V is the number of vertices/nodes.
+     * @return Total number of edges in the Graph.
+     */
+    int size_Flights();
+    /**
+     * @brief Function used to help calculate the diameter of the graph.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @param airport_code Airport code to be searched.
+     */
+    void bfs_diameter(const std::string &airport_code);
+    /**
+     * @brief Gets the diameter from every flight.
+     * @details Time Complexity - O(|V| + |E|).
+     * @details V is the number of vertices/nodes and E is the number of edges/links.
+     * @return Diameter.
+     */
+    int Diameter();
+    /**
+     * Gets de top "k" of flights by distance traveled.
+     * @param k Number of flights to be ranked.
+     * @return Set of the longest flights.
+     */
+    std::multiset<std::pair<std::string,int>, CompareDistance> top_flights(int k);
 };
 
 #endif //AED_GRAPHS_GRAPH_H

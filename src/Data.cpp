@@ -1,74 +1,70 @@
 #include "Data.h"
 
 Data::Data() {
-    this->airports_ = new Graph(true);
+    this->airports = new Graph(true);
     this->how_to_fly = true;
     readData();
 }
 
 Data::~Data() {
-    delete airports_;
+    delete airports;
 }
 
 int Data::size_aiports() const{
-    return airports_->size_Nodes();
+    return airports->size_Nodes();
 }
 
 int Data::size_airlines() const{
-    return (int) airlines_.size();
+    return (int) airlines.size();
 }
 
 int Data::size_flights() const{
-    return airports_->size_Flights();
+    return airports->size_Flights();
 }
 
 int Data::diameter() const{
-    return airports_->Diameter();
+    return airports->Diameter();
 }
 
-Airport Data::getAirport(const std::string &airport_code) const {
-    return airports_->getAirport(airport_code);
+Airport Data::getAirport(const string &airport_code) const {
+    return airports->getAirport(airport_code);
 }
 
-Airline Data::getAirline(const std::string &airline_code) const {
-    return airlines_.at(airline_code);
+Airline Data::getAirline(const string &airline_code) const {
+    return airlines.at(airline_code);
 }
 
-std::multiset<std::pair<std::string, int>,utils::CompareDistance> Data::top_flights(int k) const{
-    return airports_->top_flights(k);
-};
+std::multiset<std::pair<std::string, int>, CompareDistance> Data::top_flights(int k) const {
+    return airports->top_flights(k);
+}
 
 void Data::readData() {
-    std::ifstream airlines_input("../data/airlines.csv");
-    std::ifstream airports_input("../data/airports.csv");
-    std::ifstream flights_input("../data/flights.csv");
+    ifstream airlines_input("../dataset/airlines.csv");
+    ifstream airports_input("../dataset/airports.csv");
+    ifstream flights_input("../dataset/flights.csv");
 
-    std::string line;
+    string line;
 
-    /* discard first line */
     getline(airlines_input, line);
     getline(airports_input, line);
     getline(flights_input, line);
 
-    /* store airlines */
-    while(getline(airlines_input, line)) {//n^2
-        std::stringstream ss(line);
-
-        std::string code, name, callsign, country;
+    while(getline(airlines_input, line)) {
+        stringstream ss(line);
+        string code, name, callsign, country;
 
         getline(ss, code, ',');//n
         getline(ss, name, ',');
         getline(ss, callsign, ',');
         getline(ss, country, '\r');
 
-        airlines_.insert({ code, Airline(code, name, callsign, country) });//n
+        airlines.insert({code, Airline(code, name, callsign, country) });
     }
 
-    /* add airports to graph */
-    while(getline(airports_input, line)) {//n^2
-        std::stringstream ss(line);
+    while(getline(airports_input, line)) {
+        stringstream ss(line);
 
-        std::string code, name, city, country, latitude_string, longitude_string;
+        string code, name, city, country, latitude_string, longitude_string;
 
         getline(ss, code, ',');//n
         getline(ss, name, ',');
@@ -80,12 +76,11 @@ void Data::readData() {
         double latitude = std::stod(latitude_string);
         double longitude = std::stod(longitude_string);
 
-        cities_.insert(city);//1
+        cities.insert(city);
 
-        airports_->addNode(code, Airport(code, name, city, country, latitude, longitude));//n
+        airports->addNode(code, Airport(code, name, city, country, latitude, longitude));
     }
 
-    /* add flights to airports */
     while(getline(flights_input, line)) {
         std::stringstream ss(line);
 
@@ -95,29 +90,25 @@ void Data::readData() {
         getline(ss, target, ',');
         getline(ss, airline, '\r');
 
-        airports_->addEdge(source, target, airline);
+        airports->addEdge(source, target, airline);
     }
 }
 
-// double AirManager::getDistance(const std::string &source_airport, const std::string &target_airport) {
-//     return airports_->getShortestPath(source_airport, target_airport);
-//}
-
-std::list<std::list<std::pair<Airport,std::string>>> Data::getTraveledAirports(const std::string &source_airport, const std::string &target_airport) const {
+list<list<pair<Airport, string>>> Data::getTraveledAirports(const string &source_airport, const string &target_airport) const {
     if (how_to_fly)
-        return airports_->getTraveledAirports(source_airport, target_airport);
-    return airports_->getTraveledAirportsByDistance(source_airport,target_airport);
+        return airports->getTraveledAirports(source_airport, target_airport);
+    return airports->getTraveledAirportsByDistance(source_airport, target_airport);
 }
 
-std::list<std::list<std::pair<Airport,std::string>>>  Data::localCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude, int dist) const{
-    std::list<std::list<std::pair<Airport,std::string>>> traveled,temp;
-    std::list<std::string> start_airtports = airports_->findAirports(start_latitude,start_longitude, dist);
-    std::list<std::string> end_airports = airports_->findAirports(end_latitude,end_longitude, dist);
+list<list<pair<Airport, string>>>  Data::localCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude, int dist) const{
+    list<list<pair<Airport, string>>> traveled,temp;
+    list<string> start_airtports = airports->findAirports(start_latitude, start_longitude, dist);
+    list<string> end_airports = airports->findAirports(end_latitude, end_longitude, dist);
     if (how_to_fly){
         bool flag = true;
-        for (auto i : start_airtports){
-            for (auto j : end_airports){
-                temp = airports_->getTraveledAirports(i,j);
+        for (const auto& i : start_airtports){
+            for (const auto& j : end_airports){
+                temp = airports->getTraveledAirports(i, j);
                 if (temp.front().size()<traveled.front().size() || flag) {
                     traveled=temp;
                     flag=false;
@@ -130,30 +121,30 @@ std::list<std::list<std::pair<Airport,std::string>>>  Data::localCoordinates(dou
         return traveled;}
     bool flag = true;
     double distance=INF;
-    for (auto i : start_airtports){
-        for (auto j : end_airports){
-            temp = airports_->getTraveledAirportsByDistance(i,j);
-            if (airports_->getShortestPath(temp.front().front().first.getCode(),temp.front().back().first.getCode()) < distance || flag) {
+    for (const auto& i : start_airtports){
+        for (const auto& j : end_airports){
+            temp = airports->getTraveledAirportsByDistance(i, j);
+            if (airports->getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) < distance || flag) {
                 traveled=temp;
-                distance=airports_->getShortestPath(temp.front().front().first.getCode(),temp.front().back().first.getCode());
+                distance=airports->getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode());
                 flag=false;
             }
-            else if (airports_->getShortestPath(temp.front().front().first.getCode(),temp.front().back().first.getCode()) == distance)
+            else if (airports->getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) == distance)
                 traveled.insert(traveled.end(),temp.begin(),temp.end());
         }
     }
     return traveled;
 }
 
-std::list<std::list<std::pair<Airport,std::string>>> Data::localCity(const std::string &start, const std::string &end) const {
-    std::list<std::list<std::pair<Airport,std::string>>> traveled, temp;
-    std::list<std::string> start_airtports = airports_->findAirportByCity(start);
-    std::list<std::string> end_airports = airports_->findAirportByCity(end);
+list<list<pair<Airport, string>>> Data::localCity(const string &start, const string &end) const {
+    list<list<pair<Airport, string>>> traveled, temp;
+    list<string> start_airtports = airports->findAirportByCity(start);
+    list<string> end_airports = airports->findAirportByCity(end);
     if (how_to_fly){
         bool flag = true;
-        for (auto i : start_airtports){
-            for (auto j : end_airports){
-                temp = airports_->getTraveledAirports(i,j);
+        for (const auto& i : start_airtports){
+            for (const auto& j : end_airports){
+                temp = airports->getTraveledAirports(i, j);
                 if (temp.front().size()<traveled.front().size() || flag) {
                     traveled=temp;
                     flag=false;
@@ -166,107 +157,94 @@ std::list<std::list<std::pair<Airport,std::string>>> Data::localCity(const std::
         return traveled;}
     bool flag = true;
     double distance=INF;
-    for (auto i : start_airtports){
-        for (auto j : end_airports){
-            temp = airports_->getTraveledAirportsByDistance(i,j);
-            if (airports_->getShortestPath(temp.front().front().first.getCode(),temp.front().back().first.getCode()) < distance || flag) {
+    for (const auto& i : start_airtports){
+        for (const auto& j : end_airports){
+            temp = airports->getTraveledAirportsByDistance(i, j);
+            if (airports->getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) < distance || flag) {
                 traveled=temp;
-                distance=airports_->getShortestPath(temp.front().front().first.getCode(),temp.front().back().first.getCode());
+                distance=airports->getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode());
                 flag=false;
             }
-            else if (airports_->getShortestPath(temp.front().front().first.getCode(),temp.front().back().first.getCode()) == distance)
+            else if (airports->getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) == distance)
                 traveled.insert(traveled.end(),temp.begin(),temp.end());
         }
     }
     return traveled;
 }
 
-std::list<std::list<std::pair<Airport,std::string>>>  Data::localCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const {
-    std::string start = airports_->findAirport(start_latitude,start_longitude);
-    std::string end = airports_->findAirport(end_latitude,end_longitude);
+list<list<pair<Airport, string>>>  Data::localCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const {
+    string start = airports->findAirport(start_latitude, start_longitude);
+    string end = airports->findAirport(end_latitude, end_longitude);
     if (how_to_fly)
-        return airports_->getTraveledAirports(start,end);
-    return airports_->getTraveledAirportsByDistance(start,end);
+        return airports->getTraveledAirports(start, end);
+    return airports->getTraveledAirportsByDistance(start, end);
 }
 
-int Data::getMinFlights(const std::string &source_airport, const std::string &target_airport) {
-    return airports_->getMinFlights(source_airport, target_airport);
+list<Airline> Data::getAirlinesFromAirport(const string &airport_code) const {
+    set<string> airlines_code = airports->getAirlinesFromAirport(airport_code);
+    list<Airline> list;
+    for (const string &it : airlines_code) {
+        list.push_back(airlines.find(it)->second);
+    }
+    return list;
 }
 
-int Data::getNumberOfFlights(const std::string &airport_code) const {
-    return airports_->getNumberOfFlights(airport_code);
+list<Airport> Data::getAirportsReached(const string &source_airport, int k) {
+    return airports->getAirportsReached(source_airport, k);
 }
 
-std::list<Airline> Data::getAirlinesFromAirport(const std::string &airport_code) const {
-    std::set<std::string> airlines_code = airports_->getAirlinesFromAirport(airport_code);//|E| log(|V|)
-    std::list<Airline> airlines;
-
-    for(const std::string &it : airlines_code)//n
-        airlines.push_back(airlines_.find(it)->second);//log n
-
-    return airlines;
+set<string> Data::getCitiesReached(const string &source_airport, int k) {
+    return airports->getCitiesReached(source_airport, k);
 }
 
-std::list<Airport> Data::getAirportsReached(const std::string &source_airport, int k) {
-    return airports_->getAirportsReached(source_airport, k);
+set<string> Data::getCountriesReached(const string &source_airport, int k) {
+    return airports->getCountriesReached(source_airport, k);
 }
 
-std::set<std::string> Data::getCitiesReached(const std::string &source_airport, int k) {
-    return airports_->getCitiesReached(source_airport, k);
+set<string> Data::getArrivalAirport(const string &airport_code) const {
+    return airports->getArrivalAirports(airport_code);
 }
 
-std::set<std::string> Data::getCountriesReached(const std::string &source_airport, int k) {
-    return airports_->getCountriesReached(source_airport, k);
+set<string> Data::getArrivalCities(const string &airport_code) const {
+    return airports->getArrivalCities(airport_code);
 }
 
-std::set<std::string> Data::getArrivalAirport(const std::string &airport_code) const {
-    return airports_->getArrivalAirports(airport_code);
+set<string> Data::getArrivalCountries(const string &airport_code) const {
+    return airports->getArrivalCountries(airport_code);
 }
 
-std::set<std::string> Data::getArrivalCities(const std::string &airport_code) const {
-    return airports_->getArrivalCities(airport_code);
+bool Data::checkIfAirportExists(const string &airport_code) const {
+    return airports->checkIfAirportExists(airport_code);
 }
 
-std::set<std::string> Data::getArrivalCountries(const std::string &airport_code) const {
-    return airports_->getArrivalCountries(airport_code);
+bool Data::checkIfAirlineExists(const string &airline_code) const {
+    return (airlines.find(airline_code) != airlines.end());
 }
 
-bool Data::checkIfAirportExists(const std::string &airport_code) const {
-    return airports_->checkIfAirportExists(airport_code);
-}
-
-std::list<std::string> Data::findAirportByCity(const std::string &city) const{
-    return airports_->findAirportByCity(city);
-}
-
-bool Data::checkIfAirlineExists(const std::string &airline_code) const {
-    return (airlines_.find(airline_code) != airlines_.end());
-}
-
-bool Data::addWantedAirline(const std::string &airline_code) {
-    if(airlines_.find(airline_code) == airlines_.end())
+bool Data::addWantedAirline(const string &airline_code) {
+    if(airlines.find(airline_code) == airlines.end())
         return false;
 
-    if(airports_->getWantedAirlines().find(airline_code) != airports_->getWantedAirlines().end())
+    if(airports->getWantedAirlines().find(airline_code) != airports->getWantedAirlines().end())
         return false;
 
-    airports_->addWantedAirline(airline_code);
+    airports->addWantedAirline(airline_code);
     return true;
 }
 
-bool Data::removeWantedAirline(const std::string &airline_code) {
-    if(airlines_.find(airline_code) == airlines_.end())
+bool Data::removeWantedAirline(const string &airline_code) {
+    if(airlines.find(airline_code) == airlines.end())
         return false;
 
-    return airports_->removeWantedAirline(airline_code);
+    return airports->removeWantedAirline(airline_code);
 }
 
 void Data::clearWantedAirline() {
-    airports_->clearWantedAirline();
+    airports->clearWantedAirline();
 }
 
-std::unordered_set<std::string> Data::getWantedAirlines() const {
-    return airports_->getWantedAirlines();
+unordered_set<string> Data::getWantedAirlines() const {
+    return airports->getWantedAirlines();
 }
 
 bool Data::getHowToFly() const {
