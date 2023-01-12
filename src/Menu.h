@@ -18,7 +18,10 @@ public:
      * @details Also creates a new Manager to execute every action needed.
      */
     Menu();
-
+    /**
+     * Complexity: O(1)
+     * Método void que "limpa" o ecrã
+     */
     static void clearScreen();
     /**
      * @brief Initializes the main menu.
@@ -45,33 +48,33 @@ public:
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
-    void flightsFromAirportInfo(const std::string &airport_code) const;
+    void flightsFromAirportInfo(const string& airport_code) const;
     /**
      * @brief Prints all airlines available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
-    void airlinesFromAirportInfo(const std::string &airport_code) const;
+    void airlinesFromAirportInfo(const string& airport_code) const;
     /**
      * @brief Prints all cities reachable within all of the flights available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
-    void citiesFromAirportInfo(const std::string &airport_code) const;
+    void citiesFromAirportInfo(const string& airport_code) const;
     /**
      * @brief Prints all counties reachable within all of the flights available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
-    void countriesFromAirportInfo(const std::string &airport_code) const;
+    void countriesFromAirportInfo(const string& airport_code) const;
     /**
      * @brief Opens the menu to help costumers view all places reachable within a wanted number of flights starting from a source airport.
      * @param airport_code Airport's code.
      */
-    void reachInFlights(const std::string &airport_code);
+    void reachInFlights(const string& airport_code);
     /**
      * @brief Prints all airports reachable within a fixed number of flights starting from a source airport.
      * @details Time Complexity - O(|V| + |E|).
@@ -79,7 +82,7 @@ public:
      * @param airport_code Airport's code.
      * @param nr_flights  Number of flights desired.
      */
-    void reachableAirportsInFlights(const std::string &airport_code, int nr_flights);
+    void reachableAirportsInFlights(const string& airport_code, int nr_flights);
     /**
      * @brief Prints all cities reachable within a fixed number of flights starting from a source airport.
      * @details Time Complexity - O(|V| + |E|).
@@ -87,7 +90,7 @@ public:
      * @param airport_code Airport's code.
      * @param nr_flights  Number of flights desired.
      */
-    void reachableCitiesInFlights(const std::string &airport_code, int nr_flights);
+    void reachableCitiesInFlights(const string& airport_code, int nr_flights);
     /**
      * @brief Prints all countries reachable within a fixed number of flights starting from a source airport.
      * @details Time Complexity - O(|V| + |E|).
@@ -95,7 +98,7 @@ public:
      * @param airport_code Airport's code.
      * @param nr_flights  Number of flights desired.
      */
-    void reachableCountriesInFlights(const std::string &airport_code, int nr_flights);
+    void reachableCountriesInFlights(const string& airport_code, int nr_flights);
     /**
      * @brief Opens the inputting menu for cities.
      * @details This menu is used to input the current city where the client is and the desired city the client wants to go.
@@ -106,7 +109,7 @@ public:
      * @details In case of impossible travels this menu also warns the client.
      * @param traveled_airports List of all the airports traveled.
      */
-    static void pages(const std::list<std::list<std::pair<Airport, std::string>>> &traveled_airports) ;
+    static void pages(const list<list<pair<Airport, string>>>& traveled_airports) ;
     /**
      * @brief Opens the inputting menu for gps coordinates of the airports.
      * @details This menu is used to input the current airport's coordinates where the client is and the desired airport's coordinates the client wants to go.

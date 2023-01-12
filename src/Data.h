@@ -22,9 +22,9 @@ private:
     ///Graph with all the information of the air traffic, airports and flights.
     Graph* airports;
     ///Stores all the airlines, connecting them to their code.
-    std::unordered_map<std::string, Airline> airlines;
+    unordered_map<string, Airline> airlines;
     ///A set used to fill with all the cities with airports.
-    std::unordered_set<std::string> cities;
+    unordered_set<string> cities;
     /**
      * Variable used to determine all of the flights in a trip
      * @details True means the flights will be determined by the less number of kilometers possible.
@@ -55,14 +55,14 @@ public:
      * @param airport_code Airport's code.
      * @return All of the airport information.
      */
-    Airport getAirport(const std::string &airport_code) const;
+    Airport getAirport(const string& airport_code) const;
     /**
      * Gets the Airline class.
      * @details Time Complexity - O(1).
      * @param airport_code Airport's code.
      * @return All of the airline information.
      */
-    Airline getAirline(const std::string &airline_code) const;
+    Airline getAirline(const string& airline_code) const;
     /**
      * Gets a list of every traveled airport in a trip from a source airport to a target airport.
      * @details Time Complexity - O(|V| + |E|).
@@ -71,7 +71,7 @@ public:
      * @param target_airport Target airport's code.
      * @return List of all airports the client can travel through in a trip.
      */
-    std::list<std::list<std::pair<Airport,std::string>>> getTraveledAirports(const std::string &source_airport, const std::string &target_airport) const;
+    list<list<pair<Airport, string>>> getTraveledAirports(const string& source_airport, const string& target_airport) const;
     /**
      * Gets a list of every traveled airport in a trip from a source airport to a target airport using local GPS coordinates as a reference.
      * @details Time Complexity - O(n^2 (|V|+|E|).
@@ -83,7 +83,7 @@ public:
      * @param dist Max distance from this coordinates to search an airport for.
      * @return List of all airports the client can travel through in a trip.
      */
-    std::list<std::list<std::pair<Airport,std::string>>> localCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude,int dist) const;
+    list<list<pair<Airport, string>>> localCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude,int dist) const;
     /**
      * Gets a list of every traveled airport in a trip from a source airport to a target airport using both the host cities as reference.
      * @details Time Complexity - O(n^2 (|V|+|E|).
@@ -92,7 +92,7 @@ public:
      * @param end Target airport's city.
      * @return List of all airports the client can travel through in a trip.
      */
-    std::list<std::list<std::pair<Airport, std::string>>> localCity(const std::string &start, const std::string &end) const;
+    list<list<pair<Airport, string>>> localCity(const string& start, const string& end) const;
     /**
      * Gets a list of every traveled airport in a trip from a source airport to a target airport using inputted GPS coordinates as reference.
      * @details Because inputting coordinates can be too exact, this function helps the user finding the closest airports to both coordinates.
@@ -103,7 +103,7 @@ public:
      * @param end_latitude Latitude selected by the client.
      * @return List of all airports the client can travel through in a trip.
      */
-    std::list<std::list<std::pair<Airport, std::string>>> localCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const;
+    list<list<pair<Airport, string>>> localCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const;
     /**
      * Gets all of the airlines connected to an airport.
      * @details Time Complexity- O(|E| log(|V|)).
@@ -111,7 +111,7 @@ public:
      * @param airport_code Airport's code.
      * @return Set with all airlines connected to a certain airport.
      */
-    std::list<Airline> getAirlinesFromAirport(const std::string &airport_code) const;
+    list<Airline> getAirlinesFromAirport(const string& airport_code) const;
     /**
      * Gets all airports that can be reached from a source airport in a fixed number of flights.
      * @details Time Complexity - O(|V| + |E|).
@@ -120,7 +120,7 @@ public:
      * @param k Number of flights.
      * @return List of airports reachable within a "k" number of flights.
      */
-    std::list<Airport> getAirportsReached(const std::string &source_airport, int k);
+    list<Airport> getAirportsReached(const string& source_airport, int k);
     /**
     * Gets all cities that can be reached from a source airport in a fixed number of flights.
     * @details Time Complexity - O(|V| + |E|).
@@ -129,7 +129,7 @@ public:
     * @param k Number of flights.
     * @return List of cities reachable within a "k" number of flights.
     */
-    std::set<std::string> getCitiesReached(const std::string &source_airport, int k);
+    set<string> getCitiesReached(const string& source_airport, int k);
     /**
     * Gets all countries that can be reached from a source airport in a fixed number of flights.
     * @details Time Complexity - O(|V| + |E|).
@@ -138,7 +138,7 @@ public:
     * @param k Number of flights.
     * @return List of countries reachable within a "k" number of flights.
     */
-    std::set<std::string> getCountriesReached(const std::string &source_airport, int k);
+    set<string> getCountriesReached(const string& source_airport, int k);
     /**
      * Gets all airports that can be reached with 1 flight from a source airport.
      * @details Time Complexity- O(|E| log(|V|)).
@@ -146,7 +146,7 @@ public:
      * @param airport_code Airport's code.
      * @return List of airports reachable within 1 flight.
      */
-    std::set<std::string> getArrivalAirport(const std::string &airport_code) const;
+    set<string> getArrivalAirport(const string& airport_code) const;
     /**
      * Gets all cities that can be reached with 1 flight from a source airport.
      * @details Time Complexity- O(|E| log(|V|)).
@@ -154,7 +154,7 @@ public:
      * @param airport_code Airport's code.
      * @return List of cities reachable within 1 flight.
      */
-    std::set<std::string> getArrivalCities(const std::string &airport_code) const;
+    set<string> getArrivalCities(const string& airport_code) const;
     /**
      * Gets all countries that can be reached with 1 flight from a source airport.
      * @details Time Complexity- O(|E| log(|V|)).
@@ -162,7 +162,7 @@ public:
      * @param airport_code Airport's code.
      * @return List of countries reachable within 1 flight.
      */
-    std::set<std::string> getArrivalCountries(const std::string &airport_code) const;
+    set<string> getArrivalCountries(const string& airport_code) const;
     /**
      * Checks if airport exists in nodes hash table.
      * @details Time Complexity- O(V).
@@ -171,7 +171,7 @@ public:
      * @return True-If the airport exists.
      * @return False-If the airport doesn't exist.
      */
-    bool checkIfAirportExists(const std::string &airport_code) const;
+    bool checkIfAirportExists(const string& airport_code) const;
     /**
      * Checks if airline exists in nodes hash table.
      * @details Time Complexity- O(V).
@@ -180,35 +180,7 @@ public:
      * @return True-If the airline exists.
      * @return False-If the airline doesn't exist.
      */
-    bool checkIfAirlineExists(const std::string &airline_code) const;
-    /**
-     * @brief Adds a airline to the favourite airlines list.
-     * @details Time Complexity- O(log(n)).
-     * @details V is the number of vertices/nodes.
-     * @param airline_code Airline's code.
-     * @return True-If the airline was successfully added.
-     * @return False-If the airline was already added or airline doesn't exist in the airlines dataset.
-     */
-    bool addWantedAirline(const std::string &airline_code);
-    /**
-     * Removes the airline from the favourite airlines list.
-     * @details Time Complexity- O(n).
-     * @param airline_code Airline's code.
-     * @return True-If it was successfully removed.
-     * @return True-If the airline selected was not in the favourites list or airline doesn't exist in the airlines dataset.
-     */
-    bool removeWantedAirline(const std::string &airline_code);
-    /**
-     * Clears the favourite airlines list.
-     * @details Time Complexity- O(n).
-     */
-    void clearWantedAirline();
-    /**
-     * Gets the full list of favoured airlines.
-     * @details Time Complexity - O(1).
-     * @return Set of all the airlines included in the favourite list.
-     */
-    std::unordered_set<std::string> getWantedAirlines() const;
+    bool checkIfAirlineExists(const string& airline_code) const;
     /**
      * Gives the size of the Graph.
      * @details The number of nodes is equal to the number of airports.
@@ -241,19 +213,7 @@ public:
      * @param k Number of flights to be ranked.
      * @return Set of the longest flights.
      */
-    std::multiset<std::pair<std::string,int>, CompareDistance> top_flights(int k) const;
-    /**
-     * Gets the variable that holds the way the flights will be determined
-     * @return True-The flights will be determined by the less number of kilometers possible.
-     * @return False-The flights will be determined by the less number of flights possible.
-     */
-    bool getHowToFly() const;
-    /**
-     * Changes the variable that holds the way the flights will be determined.
-     * @details If the variable holds "True" value it changes to "False" and if it holds "False" otherwise.
-     */
-    void changeHowToFly();
-
+    multiset<pair<string, int>, CompareDistance> top_flights(int k) const;
 };
 
 #endif //AED_SCHEDULE_LOADDATA_H
