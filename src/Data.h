@@ -81,7 +81,8 @@ public:
      * @param dist Max distance from this coordinates to search an airport for.
      * @return List of all airports the client can travel through in a trip.
      */
-    list<list<pair<Airport, string>>> getTraveledAirportsCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude, int dist) const;
+    list<list<pair<Airport, string>>> getTraveledAirportsCoordinates(double start_latitude, double start_longitude,
+                                                                     double end_latitude, double end_longitude, int dist) const;
     /**
      * Gets a list of every traveled airport in a trip from a source airport to a target airport using both the host cities as reference.
      * @details Time Complexity - O(n^2 (|V|+|E|).
@@ -101,7 +102,8 @@ public:
      * @param end_latitude Latitude selected by the client.
      * @return List of all airports the client can travel through in a trip.
      */
-    list<list<pair<Airport, string>>> getTraveledAirportsCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const;
+    list<list<pair<Airport, string>>> getTraveledAirportsCoordinatesClosest(double start_latitude, double start_longitude,
+                                                                            double end_latitude, double end_longitude) const;
     /**
      * Gets all of the airlines connected to an airport.
      * @details Time Complexity- O(|E| log(|V|)).
