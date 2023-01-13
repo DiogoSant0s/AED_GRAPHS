@@ -2,7 +2,6 @@
 #define AED_SCHEDULE_MENU_H
 
 #include "Data.h"
-#include "Haversine.h"
 #include <iostream>
 #include <string>
 
@@ -14,7 +13,7 @@ private:
     Data data;
 public:
     /**
-     * @brief Constructor of the Menu class.
+     * Constructor of the Menu class.
      * @details Also creates a new Manager to execute every action needed.
      */
     Menu();
@@ -24,59 +23,64 @@ public:
      */
     static void clearScreen();
     /**
-     * @brief Initializes the main menu.
+     * Complexity: O(1)
+     * Método void que apresenta o título do menu
+     */
+    static void printTitle();
+    /**
+     * Initializes the main menu.
      */
     void init();
     /**
-     * @brief Initializes the search flights menu.
+     * Initializes the search flights menu.
      * @details This menu is used to select which search method will be used to explore the air traffic.
      */
     void inputFlights() const;
     /**
-     * @brief Initializes the airport info menu.
+     * Initializes the airport info menu.
      * @details This menu is used to give access to all information about a airport such as name,location,flights available,etc.
      */
     void airportInfo();
     /**
-     * @brief Initializes the airline info menu.
+     * Initializes the airline info menu.
      * @details This menu is used to give all information about a airline such as name,call-sign,ect.
      */
     void airlineInfo() const;
     /**
-     * @brief Prints all airports reachable in all flights available in a single airport.
+     * Prints all airports reachable in all flights available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
     void flightsFromAirportInfo(const string& airport_code) const;
     /**
-     * @brief Prints all airlines available in a single airport.
+     * Prints all airlines available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
     void airlinesFromAirportInfo(const string& airport_code) const;
     /**
-     * @brief Prints all cities reachable within all of the flights available in a single airport.
+     * Prints all cities reachable within all of the flights available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
     void citiesFromAirportInfo(const string& airport_code) const;
     /**
-     * @brief Prints all counties reachable within all of the flights available in a single airport.
+     * Prints all counties reachable within all of the flights available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code
      */
     void countriesFromAirportInfo(const string& airport_code) const;
     /**
-     * @brief Opens the menu to help costumers view all places reachable within a wanted number of flights starting from a source airport.
+     * Opens the menu to help costumers view all places reachable within a wanted number of flights starting from a source airport.
      * @param airport_code Airport's code.
      */
     void reachInFlights(const string& airport_code);
     /**
-     * @brief Prints all airports reachable within a fixed number of flights starting from a source airport.
+     * Prints all airports reachable within a fixed number of flights starting from a source airport.
      * @details Time Complexity - O(|V| + |E|).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code.
@@ -84,7 +88,7 @@ public:
      */
     void reachableAirportsInFlights(const string& airport_code, int nr_flights);
     /**
-     * @brief Prints all cities reachable within a fixed number of flights starting from a source airport.
+     * Prints all cities reachable within a fixed number of flights starting from a source airport.
      * @details Time Complexity - O(|V| + |E|).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code.
@@ -92,7 +96,7 @@ public:
      */
     void reachableCitiesInFlights(const string& airport_code, int nr_flights);
     /**
-     * @brief Prints all countries reachable within a fixed number of flights starting from a source airport.
+     * Prints all countries reachable within a fixed number of flights starting from a source airport.
      * @details Time Complexity - O(|V| + |E|).
      * @details V is the number of vertices/nodes and E is the number of edges/links.
      * @param airport_code Airport's code.
@@ -100,35 +104,33 @@ public:
      */
     void reachableCountriesInFlights(const string& airport_code, int nr_flights);
     /**
-     * @brief Opens the inputting menu for cities.
+     * Opens the inputting menu for cities.
      * @details This menu is used to input the current city where the client is and the desired city the client wants to go.
      */
     void inputCity() const;
     /**
-     * @brief Prints all the traveled airports in a trip the client selected.
+     * Prints all the traveled airports in a trip the client selected.
      * @details In case of impossible travels this menu also warns the client.
      * @param traveled_airports List of all the airports traveled.
      */
     static void pages(const list<list<pair<Airport, string>>>& traveled_airports) ;
     /**
-     * @brief Opens the inputting menu for gps coordinates of the airports.
+     * Opens the inputting menu for gps coordinates of the airports.
      * @details This menu is used to input the current airport's coordinates where the client is and the desired airport's coordinates the client wants to go.
      * @param option Option to input the exact coordinates or not.
      * @details option=true means the client wants to input the exact coordinates of a airport and option=false means the client will just input coordinates close to the airport.
      */
     void inputCoordinates(bool option) const;
     /**
-     * @brief Opens the inputting menu for airports.
+     * Opens the inputting menu for airports.
      * @details This menu is used to input the current airport where the client is and the desired airport the client wants to go.
      */
     void inputAirport() const;
     /**
-     * @brief Opens the menu with the global information
+     * Opens the menu with the global information
      * @details This menu is used to view top flights, all airports available, all airlines, ect.
      */
     void globalInfo();
-
-    static void printTitle();
 };
 
 #endif

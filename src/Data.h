@@ -2,8 +2,6 @@
 #define AED_SCHEDULE_LOADDATA_H
 
 #include "Graph.h"
-#include "Airline.h"
-#include "Haversine.h"
 #include <list>
 #include <set>
 #include <fstream>
@@ -83,7 +81,7 @@ public:
      * @param dist Max distance from this coordinates to search an airport for.
      * @return List of all airports the client can travel through in a trip.
      */
-    list<list<pair<Airport, string>>> localCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude,int dist) const;
+    list<list<pair<Airport, string>>> getTraveledAirportsCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude, int dist) const;
     /**
      * Gets a list of every traveled airport in a trip from a source airport to a target airport using both the host cities as reference.
      * @details Time Complexity - O(n^2 (|V|+|E|).
@@ -92,7 +90,7 @@ public:
      * @param end Target airport's city.
      * @return List of all airports the client can travel through in a trip.
      */
-    list<list<pair<Airport, string>>> localCity(const string& start, const string& end) const;
+    list<list<pair<Airport, string>>> getTraveledAirportsCity(const string& start, const string& end) const;
     /**
      * Gets a list of every traveled airport in a trip from a source airport to a target airport using inputted GPS coordinates as reference.
      * @details Because inputting coordinates can be too exact, this function helps the user finding the closest airports to both coordinates.
@@ -103,7 +101,7 @@ public:
      * @param end_latitude Latitude selected by the client.
      * @return List of all airports the client can travel through in a trip.
      */
-    list<list<pair<Airport, string>>> localCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const;
+    list<list<pair<Airport, string>>> getTraveledAirportsCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const;
     /**
      * Gets all of the airlines connected to an airport.
      * @details Time Complexity- O(|E| log(|V|)).
@@ -213,7 +211,7 @@ public:
      * @param k Number of flights to be ranked.
      * @return Set of the longest flights.
      */
-    multiset<pair<string, int>, CompareDistance> top_flights(int k) const;
+    multiset<pair<string, int>, Distance> top_flights(int k) const;
 };
 
 #endif //AED_SCHEDULE_LOADDATA_H

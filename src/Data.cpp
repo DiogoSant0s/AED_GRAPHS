@@ -14,7 +14,7 @@ int Data::size_flights() const{return airports -> size_Flights();}
 int Data::diameter() const{return airports -> Diameter();}
 Airport Data::getAirport(const string& airport_code) const {return airports -> getAirport(airport_code);}
 Airline Data::getAirline(const string& airline_code) const {return airlines.at(airline_code);}
-multiset<pair<string, int>, CompareDistance> Data::top_flights(int k) const {return airports -> top_flights(k);}
+multiset<pair<string, int>, Distance> Data::top_flights(int k) const {return airports -> top_flights(k);}
 
 void Data::readData() {
     ifstream airlines_input("../dataset/airlines.csv");
@@ -69,12 +69,13 @@ void Data::readData() {
 }
 
 list<list<pair<Airport, string>>> Data::getTraveledAirports(const string& source_airport, const string& target_airport) const {
-    if (how_to_fly)
+    if (how_to_fly) {
         return airports -> getTraveledAirports(source_airport, target_airport);
+    }
     return airports -> getTraveledAirportsByDistance(source_airport, target_airport);
 }
 
-list<list<pair<Airport, string>>>  Data::localCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude, int dist) const{
+list<list<pair<Airport, string>>>  Data::getTraveledAirportsCoordinates(double start_latitude, double start_longitude, double end_latitude, double end_longitude, int dist) const{
     list<list<pair<Airport, string>>> traveled,temp;
     list<string> start_airtports = airports -> findAirports(start_latitude, start_longitude, dist);
     list<string> end_airports = airports -> findAirports(end_latitude, end_longitude, dist);
@@ -98,19 +99,19 @@ list<list<pair<Airport, string>>>  Data::localCoordinates(double start_latitude,
     for (const auto& i : start_airtports){
         for (const auto& j : end_airports){
             temp = airports -> getTraveledAirportsByDistance(i, j);
-            if (airports -> getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) < distance || flag) {
+            if (airports->getShortestPath(temp.front().back().first.getCode()) < distance || flag) {
                 traveled = temp;
-                distance = airports -> getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode());
+                distance = airports->getShortestPath(temp.front().back().first.getCode());
                 flag = false;
             }
-            else if (airports -> getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) == distance)
+            else if (airports->getShortestPath(temp.front().back().first.getCode()) == distance)
                 traveled.insert(traveled.end(),temp.begin(),temp.end());
         }
     }
     return traveled;
 }
 
-list<list<pair<Airport, string>>> Data::localCity(const string& start, const string& end) const {
+list<list<pair<Airport, string>>> Data::getTraveledAirportsCity(const string& start, const string& end) const {
     list<list<pair<Airport, string>>> traveled, temp;
     list<string> start_airtports = airports -> findAirportByCity(start);
     list<string> end_airports = airports -> findAirportByCity(end);
@@ -135,19 +136,19 @@ list<list<pair<Airport, string>>> Data::localCity(const string& start, const str
     for (const auto& i : start_airtports){
         for (const auto& j : end_airports){
             temp = airports -> getTraveledAirportsByDistance(i, j);
-            if (airports -> getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) < distance || flag) {
+            if (airports->getShortestPath(temp.front().back().first.getCode()) < distance || flag) {
                 traveled = temp;
-                distance = airports -> getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode());
+                distance = airports->getShortestPath(temp.front().back().first.getCode());
                 flag = false;
             }
-            else if (airports -> getShortestPath(temp.front().front().first.getCode(), temp.front().back().first.getCode()) == distance)
+            else if (airports->getShortestPath(temp.front().back().first.getCode()) == distance)
                 traveled.insert(traveled.end(),temp.begin(),temp.end());
         }
     }
     return traveled;
 }
 
-list<list<pair<Airport, string>>>  Data::localCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const {
+list<list<pair<Airport, string>>>  Data::getTraveledAirportsCoordinatesClosest(double start_latitude, double start_longitude, double end_latitude, double end_longitude) const {
     string start = airports -> findAirport(start_latitude, start_longitude);
     string end = airports -> findAirport(end_latitude, end_longitude);
     if (how_to_fly) {

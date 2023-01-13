@@ -251,7 +251,7 @@ void Menu::inputCity() const {
         }
         clearScreen();
     }
-    list<list<pair<Airport, string>>> traveled_airports = data.localCity(source, target);
+    list<list<pair<Airport, string>>> traveled_airports = data.getTraveledAirportsCity(source, target);
     pages(traveled_airports);
 }
 
@@ -298,10 +298,12 @@ void Menu::inputCoordinates(bool option) const {
         int dist;
         cout << "Insert desired radius: ";
         cin >> dist;
-        traveled_airports = data.localCoordinates(source_latitude,source_longitude,target_latitude,target_longitude, dist);
+        traveled_airports = data.getTraveledAirportsCoordinates(source_latitude, source_longitude, target_latitude,
+                                                                target_longitude, dist);
     }
     else
-        traveled_airports = data.localCoordinatesClosest(source_latitude,source_longitude,target_latitude,target_longitude);
+        traveled_airports = data.getTraveledAirportsCoordinatesClosest(source_latitude, source_longitude,
+                                                                       target_latitude, target_longitude);
     pages(traveled_airports);
 }
 

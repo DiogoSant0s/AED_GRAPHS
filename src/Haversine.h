@@ -27,7 +27,7 @@ using namespace std;
     /**
      * Helper function used in dijkstra algorithm.
      */
-    struct CompareDistance {
+    struct Distance {
         bool operator()(pair<string, double> const &n1, pair<string, double> const &n2) {
             return n1.second > n2.second;
         }
