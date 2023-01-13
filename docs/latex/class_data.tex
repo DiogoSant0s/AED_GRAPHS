@@ -1,0 +1,446 @@
+\hypertarget{class_data}{}\doxysection{Data Class Reference}
+\label{class_data}\index{Data@{Data}}
+
+
+{\ttfamily \#include $<$Data.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_data_af11f741cb7f587e2e495452a8905a22a}{Data}} ()
+\item 
+\mbox{\hyperlink{class_data_aab31956423290f0d62dcca47ab4d16dd}{$\sim$\+Data}} ()
+\item 
+\mbox{\hyperlink{class_airport}{Airport}} \mbox{\hyperlink{class_data_a9181d273a3f423496cccbe5d81c2bb8c}{get\+Airport}} (const string \&airport\+\_\+code) const
+\item 
+\mbox{\hyperlink{class_airline}{Airline}} \mbox{\hyperlink{class_data_a25ba8485f32c3f50c6b0f5a089313c10}{get\+Airline}} (const string \&airline\+\_\+code) const
+\item 
+list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ \mbox{\hyperlink{class_data_a11f7ca4645a2e9fc6d886d5d79d0c149}{get\+Traveled\+Airports}} (const string \&source\+\_\+airport, const string \&target\+\_\+airport) const
+\item 
+list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ \mbox{\hyperlink{class_data_ad05e94080357d515dd2fd44a75b0423d}{get\+Traveled\+Airports\+Coordinates}} (double start\+\_\+latitude, double start\+\_\+longitude, double end\+\_\+latitude, double end\+\_\+longitude, int dist) const
+\item 
+list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ \mbox{\hyperlink{class_data_ae9c6e4ae35c769ecc6ac46f3823fc42b}{get\+Traveled\+Airports\+City}} (const string \&start, const string \&end) const
+\item 
+list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ \mbox{\hyperlink{class_data_aa18fd1ca9d9beef82997b42569b094b8}{get\+Traveled\+Airports\+Coordinates\+Closest}} (double start\+\_\+latitude, double start\+\_\+longitude, double end\+\_\+latitude, double end\+\_\+longitude) const
+\item 
+list$<$ \mbox{\hyperlink{class_airline}{Airline}} $>$ \mbox{\hyperlink{class_data_a934a7b7a7b6b5c1eeb576e64265ed97b}{get\+Airlines\+From\+Airport}} (const string \&airport\+\_\+code) const
+\item 
+list$<$ \mbox{\hyperlink{class_airport}{Airport}} $>$ \mbox{\hyperlink{class_data_af24ebfe196059c184a319b3cbc9a58ae}{get\+Airports\+Reached}} (const string \&source\+\_\+airport, int k)
+\item 
+set$<$ string $>$ \mbox{\hyperlink{class_data_a245ffd2134cda9db4b3ab64904047963}{get\+Cities\+Reached}} (const string \&source\+\_\+airport, int k)
+\item 
+set$<$ string $>$ \mbox{\hyperlink{class_data_a718da86d7aa5a63346ee1e61489dc77a}{get\+Countries\+Reached}} (const string \&source\+\_\+airport, int k)
+\item 
+set$<$ string $>$ \mbox{\hyperlink{class_data_a75666f39dbb622d7cf97e2fa4de30ac3}{get\+Arrival\+Airport}} (const string \&airport\+\_\+code) const
+\item 
+set$<$ string $>$ \mbox{\hyperlink{class_data_aa8a18d9284b7a2e040b045333e8b4978}{get\+Arrival\+Cities}} (const string \&airport\+\_\+code) const
+\item 
+set$<$ string $>$ \mbox{\hyperlink{class_data_a19a47607fe508e1170354ecfb2a026a4}{get\+Arrival\+Countries}} (const string \&airport\+\_\+code) const
+\item 
+bool \mbox{\hyperlink{class_data_a9ba3032eadf15469fb251ade96d1bb3b}{check\+If\+Airport\+Exists}} (const string \&airport\+\_\+code) const
+\item 
+bool \mbox{\hyperlink{class_data_a140211c7b84e940ec8de84ed7f139538}{check\+If\+Airline\+Exists}} (const string \&airline\+\_\+code) const
+\item 
+int \mbox{\hyperlink{class_data_aec37e5a149e186ed9ac24139d17a0927}{size\+\_\+aiports}} () const
+\item 
+int \mbox{\hyperlink{class_data_a83ccc829b9659271648ac748a4887864}{size\+\_\+airlines}} () const
+\item 
+int \mbox{\hyperlink{class_data_a9356000d002c6f7a2bdf4a3b69ae23fb}{size\+\_\+flights}} () const
+\item 
+int \mbox{\hyperlink{class_data_a3cf9205ad02962ba3f58bb102855c84d}{diameter}} () const
+\item 
+multiset$<$ pair$<$ string, int $>$, \mbox{\hyperlink{struct_distance}{Distance}} $>$ \mbox{\hyperlink{class_data_a9f669fc6b38ecfbff853e125bd8ce0d6}{top\+\_\+flights}} (int k) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the Manager of the air traffic. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_data_af11f741cb7f587e2e495452a8905a22a}\label{class_data_af11f741cb7f587e2e495452a8905a22a}} 
+\index{Data@{Data}!Data@{Data}}
+\index{Data@{Data}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{Data()}{Data()}}
+{\footnotesize\ttfamily Data\+::\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Creates a new data.
+
+Constructor of the Air\+Manager class.
+
+Creates a new directed \mbox{\hyperlink{class_graph}{Graph}} and reads all the data from the files. \mbox{\Hypertarget{class_data_aab31956423290f0d62dcca47ab4d16dd}\label{class_data_aab31956423290f0d62dcca47ab4d16dd}} 
+\index{Data@{Data}!````~Data@{$\sim$Data}}
+\index{````~Data@{$\sim$Data}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{$\sim$Data()}{~Data()}}
+{\footnotesize\ttfamily Data\+::$\sim$\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Deletes the current data.
+
+Destructor of the Air\+Manager class.
+
+Deletion of the current airports and flights \mbox{\hyperlink{class_graph}{Graph}}. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_data_a140211c7b84e940ec8de84ed7f139538}\label{class_data_a140211c7b84e940ec8de84ed7f139538}} 
+\index{Data@{Data}!checkIfAirlineExists@{checkIfAirlineExists}}
+\index{checkIfAirlineExists@{checkIfAirlineExists}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{checkIfAirlineExists()}{checkIfAirlineExists()}}
+{\footnotesize\ttfamily bool Data\+::check\+If\+Airline\+Exists (\begin{DoxyParamCaption}\item[{const string \&}]{airline\+\_\+code }\end{DoxyParamCaption}) const}
+
+Checks if airline exists in nodes hash table.
+
+Time Complexity-\/ O(\+V).
+
+V is the number of vertices/nodes. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airline}{Airline}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True-\/\+If the airline exists. 
+
+False-\/\+If the airline doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a9ba3032eadf15469fb251ade96d1bb3b}\label{class_data_a9ba3032eadf15469fb251ade96d1bb3b}} 
+\index{Data@{Data}!checkIfAirportExists@{checkIfAirportExists}}
+\index{checkIfAirportExists@{checkIfAirportExists}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{checkIfAirportExists()}{checkIfAirportExists()}}
+{\footnotesize\ttfamily bool Data\+::check\+If\+Airport\+Exists (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Checks if airport exists in nodes hash table.
+
+Time Complexity-\/ O(\+V).
+
+V is the number of vertices/nodes. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True-\/\+If the airport exists. 
+
+False-\/\+If the airport doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a3cf9205ad02962ba3f58bb102855c84d}\label{class_data_a3cf9205ad02962ba3f58bb102855c84d}} 
+\index{Data@{Data}!diameter@{diameter}}
+\index{diameter@{diameter}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{diameter()}{diameter()}}
+{\footnotesize\ttfamily int Data\+::diameter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gets the diameter from every flight.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. \begin{DoxyReturn}{Returns}
+Diameter. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a25ba8485f32c3f50c6b0f5a089313c10}\label{class_data_a25ba8485f32c3f50c6b0f5a089313c10}} 
+\index{Data@{Data}!getAirline@{getAirline}}
+\index{getAirline@{getAirline}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getAirline()}{getAirline()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_airline}{Airline}} Data\+::get\+Airline (\begin{DoxyParamCaption}\item[{const string \&}]{airline\+\_\+code }\end{DoxyParamCaption}) const}
+
+Gets the \mbox{\hyperlink{class_airline}{Airline}} class.
+
+Time Complexity -\/ O(1). 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+All of the airline information. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a934a7b7a7b6b5c1eeb576e64265ed97b}\label{class_data_a934a7b7a7b6b5c1eeb576e64265ed97b}} 
+\index{Data@{Data}!getAirlinesFromAirport@{getAirlinesFromAirport}}
+\index{getAirlinesFromAirport@{getAirlinesFromAirport}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getAirlinesFromAirport()}{getAirlinesFromAirport()}}
+{\footnotesize\ttfamily list$<$ \mbox{\hyperlink{class_airline}{Airline}} $>$ Data\+::get\+Airlines\+From\+Airport (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Gets all of the airlines connected to an airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Set with all airlines connected to a certain airport. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a9181d273a3f423496cccbe5d81c2bb8c}\label{class_data_a9181d273a3f423496cccbe5d81c2bb8c}} 
+\index{Data@{Data}!getAirport@{getAirport}}
+\index{getAirport@{getAirport}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getAirport()}{getAirport()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_airport}{Airport}} Data\+::get\+Airport (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Gets the \mbox{\hyperlink{class_airport}{Airport}} class.
+
+Time Complexity -\/ O(1). 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+All of the airport information. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_af24ebfe196059c184a319b3cbc9a58ae}\label{class_data_af24ebfe196059c184a319b3cbc9a58ae}} 
+\index{Data@{Data}!getAirportsReached@{getAirportsReached}}
+\index{getAirportsReached@{getAirportsReached}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getAirportsReached()}{getAirportsReached()}}
+{\footnotesize\ttfamily list$<$ \mbox{\hyperlink{class_airport}{Airport}} $>$ Data\+::get\+Airports\+Reached (\begin{DoxyParamCaption}\item[{const string \&}]{source\+\_\+airport,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+Gets all airports that can be reached from a source airport in a fixed number of flights.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em source\+\_\+airport} & Source airport\textquotesingle{}s code. \\
+\hline
+{\em k} & Number of flights. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of airports reachable within a \char`\"{}k\char`\"{} number of flights. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a75666f39dbb622d7cf97e2fa4de30ac3}\label{class_data_a75666f39dbb622d7cf97e2fa4de30ac3}} 
+\index{Data@{Data}!getArrivalAirport@{getArrivalAirport}}
+\index{getArrivalAirport@{getArrivalAirport}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getArrivalAirport()}{getArrivalAirport()}}
+{\footnotesize\ttfamily set$<$ string $>$ Data\+::get\+Arrival\+Airport (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Gets all airports that can be reached with 1 flight from a source airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of airports reachable within 1 flight. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_aa8a18d9284b7a2e040b045333e8b4978}\label{class_data_aa8a18d9284b7a2e040b045333e8b4978}} 
+\index{Data@{Data}!getArrivalCities@{getArrivalCities}}
+\index{getArrivalCities@{getArrivalCities}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getArrivalCities()}{getArrivalCities()}}
+{\footnotesize\ttfamily set$<$ string $>$ Data\+::get\+Arrival\+Cities (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Gets all cities that can be reached with 1 flight from a source airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of cities reachable within 1 flight. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a19a47607fe508e1170354ecfb2a026a4}\label{class_data_a19a47607fe508e1170354ecfb2a026a4}} 
+\index{Data@{Data}!getArrivalCountries@{getArrivalCountries}}
+\index{getArrivalCountries@{getArrivalCountries}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getArrivalCountries()}{getArrivalCountries()}}
+{\footnotesize\ttfamily set$<$ string $>$ Data\+::get\+Arrival\+Countries (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Gets all countries that can be reached with 1 flight from a source airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of countries reachable within 1 flight. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a245ffd2134cda9db4b3ab64904047963}\label{class_data_a245ffd2134cda9db4b3ab64904047963}} 
+\index{Data@{Data}!getCitiesReached@{getCitiesReached}}
+\index{getCitiesReached@{getCitiesReached}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getCitiesReached()}{getCitiesReached()}}
+{\footnotesize\ttfamily set$<$ string $>$ Data\+::get\+Cities\+Reached (\begin{DoxyParamCaption}\item[{const string \&}]{source\+\_\+airport,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+Gets all cities that can be reached from a source airport in a fixed number of flights.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em source\+\_\+airport} & Source airport\textquotesingle{}s code. \\
+\hline
+{\em k} & Number of flights. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of cities reachable within a \char`\"{}k\char`\"{} number of flights. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a718da86d7aa5a63346ee1e61489dc77a}\label{class_data_a718da86d7aa5a63346ee1e61489dc77a}} 
+\index{Data@{Data}!getCountriesReached@{getCountriesReached}}
+\index{getCountriesReached@{getCountriesReached}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getCountriesReached()}{getCountriesReached()}}
+{\footnotesize\ttfamily set$<$ string $>$ Data\+::get\+Countries\+Reached (\begin{DoxyParamCaption}\item[{const string \&}]{source\+\_\+airport,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+Gets all countries that can be reached from a source airport in a fixed number of flights.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em source\+\_\+airport} & Source airport\textquotesingle{}s code. \\
+\hline
+{\em k} & Number of flights. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of countries reachable within a \char`\"{}k\char`\"{} number of flights. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a11f7ca4645a2e9fc6d886d5d79d0c149}\label{class_data_a11f7ca4645a2e9fc6d886d5d79d0c149}} 
+\index{Data@{Data}!getTraveledAirports@{getTraveledAirports}}
+\index{getTraveledAirports@{getTraveledAirports}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getTraveledAirports()}{getTraveledAirports()}}
+{\footnotesize\ttfamily list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ Data\+::get\+Traveled\+Airports (\begin{DoxyParamCaption}\item[{const string \&}]{source\+\_\+airport,  }\item[{const string \&}]{target\+\_\+airport }\end{DoxyParamCaption}) const}
+
+Gets a list of every traveled airport in a trip from a source airport to a target airport.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em source\+\_\+airport} & Source airport\textquotesingle{}s code. \\
+\hline
+{\em target\+\_\+airport} & Target airport\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of all airports the client can travel through in a trip. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_ae9c6e4ae35c769ecc6ac46f3823fc42b}\label{class_data_ae9c6e4ae35c769ecc6ac46f3823fc42b}} 
+\index{Data@{Data}!getTraveledAirportsCity@{getTraveledAirportsCity}}
+\index{getTraveledAirportsCity@{getTraveledAirportsCity}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getTraveledAirportsCity()}{getTraveledAirportsCity()}}
+{\footnotesize\ttfamily list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ Data\+::get\+Traveled\+Airports\+City (\begin{DoxyParamCaption}\item[{const string \&}]{start,  }\item[{const string \&}]{end }\end{DoxyParamCaption}) const}
+
+Gets a list of every traveled airport in a trip from a source airport to a target airport using both the host cities as reference.
+
+Time Complexity -\/ O(n$^\wedge$2 ($\vert$\+V$\vert$+$\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em start} & Source airport\textquotesingle{}s city. \\
+\hline
+{\em end} & Target airport\textquotesingle{}s city. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of all airports the client can travel through in a trip. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_ad05e94080357d515dd2fd44a75b0423d}\label{class_data_ad05e94080357d515dd2fd44a75b0423d}} 
+\index{Data@{Data}!getTraveledAirportsCoordinates@{getTraveledAirportsCoordinates}}
+\index{getTraveledAirportsCoordinates@{getTraveledAirportsCoordinates}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getTraveledAirportsCoordinates()}{getTraveledAirportsCoordinates()}}
+{\footnotesize\ttfamily list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ Data\+::get\+Traveled\+Airports\+Coordinates (\begin{DoxyParamCaption}\item[{double}]{start\+\_\+latitude,  }\item[{double}]{start\+\_\+longitude,  }\item[{double}]{end\+\_\+latitude,  }\item[{double}]{end\+\_\+longitude,  }\item[{int}]{dist }\end{DoxyParamCaption}) const}
+
+Gets a list of every traveled airport in a trip from a source airport to a target airport using local GPS coordinates as a reference.
+
+Time Complexity -\/ O(n$^\wedge$2 ($\vert$\+V$\vert$+$\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em start\+\_\+longitude} & Source airport\textquotesingle{}s longitude. \\
+\hline
+{\em start\+\_\+latitude} & Source airport\textquotesingle{}s latitude. \\
+\hline
+{\em end\+\_\+longitude} & Target airport\textquotesingle{}s longitude. \\
+\hline
+{\em end\+\_\+latitude} & Target airport\textquotesingle{}s latitude. \\
+\hline
+{\em dist} & Max distance from this coordinates to search an airport for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of all airports the client can travel through in a trip. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_aa18fd1ca9d9beef82997b42569b094b8}\label{class_data_aa18fd1ca9d9beef82997b42569b094b8}} 
+\index{Data@{Data}!getTraveledAirportsCoordinatesClosest@{getTraveledAirportsCoordinatesClosest}}
+\index{getTraveledAirportsCoordinatesClosest@{getTraveledAirportsCoordinatesClosest}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{getTraveledAirportsCoordinatesClosest()}{getTraveledAirportsCoordinatesClosest()}}
+{\footnotesize\ttfamily list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ Data\+::get\+Traveled\+Airports\+Coordinates\+Closest (\begin{DoxyParamCaption}\item[{double}]{start\+\_\+latitude,  }\item[{double}]{start\+\_\+longitude,  }\item[{double}]{end\+\_\+latitude,  }\item[{double}]{end\+\_\+longitude }\end{DoxyParamCaption}) const}
+
+Gets a list of every traveled airport in a trip from a source airport to a target airport using inputted GPS coordinates as reference.
+
+Because inputting coordinates can be too exact, this function helps the user finding the closest airports to both coordinates.
+
+Time Complexity -\/ O(\+V log(n)). 
+\begin{DoxyParams}{Parameters}
+{\em start\+\_\+longitude} & Longitude selected by the client. \\
+\hline
+{\em start\+\_\+latitude} & Latitude selected by the client. \\
+\hline
+{\em end\+\_\+longitude} & Longitude selected by the client. \\
+\hline
+{\em end\+\_\+latitude} & Latitude selected by the client. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of all airports the client can travel through in a trip. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_aec37e5a149e186ed9ac24139d17a0927}\label{class_data_aec37e5a149e186ed9ac24139d17a0927}} 
+\index{Data@{Data}!size\_aiports@{size\_aiports}}
+\index{size\_aiports@{size\_aiports}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{size\_aiports()}{size\_aiports()}}
+{\footnotesize\ttfamily int Data\+::size\+\_\+aiports (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gives the size of the \mbox{\hyperlink{class_graph}{Graph}}.
+
+The number of nodes is equal to the number of airports.
+
+Time Complexity-\/ O(1). \begin{DoxyReturn}{Returns}
+Number of airports. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a83ccc829b9659271648ac748a4887864}\label{class_data_a83ccc829b9659271648ac748a4887864}} 
+\index{Data@{Data}!size\_airlines@{size\_airlines}}
+\index{size\_airlines@{size\_airlines}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{size\_airlines()}{size\_airlines()}}
+{\footnotesize\ttfamily int Data\+::size\+\_\+airlines (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gets the total number of airlines in the dataset
+
+Time Complexity-\/ O(1). \begin{DoxyReturn}{Returns}
+Number of airlines. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a9356000d002c6f7a2bdf4a3b69ae23fb}\label{class_data_a9356000d002c6f7a2bdf4a3b69ae23fb}} 
+\index{Data@{Data}!size\_flights@{size\_flights}}
+\index{size\_flights@{size\_flights}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{size\_flights()}{size\_flights()}}
+{\footnotesize\ttfamily int Data\+::size\+\_\+flights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Gives the size of the \mbox{\hyperlink{class_graph}{Graph}} edges.
+
+The number of edges is equal to the number of flights.
+
+Time Complexity-\/ O(\+V). \begin{DoxyReturn}{Returns}
+Number of flights. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_data_a9f669fc6b38ecfbff853e125bd8ce0d6}\label{class_data_a9f669fc6b38ecfbff853e125bd8ce0d6}} 
+\index{Data@{Data}!top\_flights@{top\_flights}}
+\index{top\_flights@{top\_flights}!Data@{Data}}
+\doxysubsubsection{\texorpdfstring{top\_flights()}{top\_flights()}}
+{\footnotesize\ttfamily multiset$<$ pair$<$ string, int $>$, \mbox{\hyperlink{struct_distance}{Distance}} $>$ Data\+::top\+\_\+flights (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption}) const}
+
+Gets de top \char`\"{}k\char`\"{} of flights by distance traveled. 
+\begin{DoxyParams}{Parameters}
+{\em k} & Number of flights to be ranked. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Set of the longest flights. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Diogo/\+Desktop/\+AED/\+AED\+\_\+\+GRAPHS/src/\mbox{\hyperlink{_data_8h}{Data.\+h}}\item 
+C\+:/\+Users/\+Diogo/\+Desktop/\+AED/\+AED\+\_\+\+GRAPHS/src/\mbox{\hyperlink{_data_8cpp}{Data.\+cpp}}\end{DoxyCompactItemize}

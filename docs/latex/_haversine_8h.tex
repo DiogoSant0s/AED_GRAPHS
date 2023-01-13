@@ -1,0 +1,57 @@
+\hypertarget{_haversine_8h}{}\doxysection{C\+:/\+Users/\+Diogo/\+Desktop/\+AED/\+AED\+\_\+\+GRAPHS/src/\+Haversine.h File Reference}
+\label{_haversine_8h}\index{C:/Users/Diogo/Desktop/AED/AED\_GRAPHS/src/Haversine.h@{C:/Users/Diogo/Desktop/AED/AED\_GRAPHS/src/Haversine.h}}
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include \char`\"{}Airport.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_distance}{Distance}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{_haversine_8h_a3410d50a83dc81b71aeab3fa0340dac5}{haversine}} (double lat1, double lon1, double lat2, double lon2)
+\item 
+double \mbox{\hyperlink{_haversine_8h_a1cc2e0247e2a9cfa007016ee6d5b6632}{haversine}} (const \mbox{\hyperlink{class_airport}{Airport}} \&a, const \mbox{\hyperlink{class_airport}{Airport}} \&b)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_haversine_8h_a1cc2e0247e2a9cfa007016ee6d5b6632}\label{_haversine_8h_a1cc2e0247e2a9cfa007016ee6d5b6632}} 
+\index{Haversine.h@{Haversine.h}!haversine@{haversine}}
+\index{haversine@{haversine}!Haversine.h@{Haversine.h}}
+\doxysubsubsection{\texorpdfstring{haversine()}{haversine()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double haversine (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_airport}{Airport}} \&}]{a,  }\item[{const \mbox{\hyperlink{class_airport}{Airport}} \&}]{b }\end{DoxyParamCaption})}
+
+Esta função retorna uma distância entre dois pontos, calculada com a fórmula de Haversine, dadas as suas coordenadas 
+\begin{DoxyParams}{Parameters}
+{\em p1} & Par de coordenadas do primeiro ponto \\
+\hline
+{\em p2} & Par de coordenadas do segundo ponto \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A distância entre os dois pontos 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_haversine_8h_a3410d50a83dc81b71aeab3fa0340dac5}\label{_haversine_8h_a3410d50a83dc81b71aeab3fa0340dac5}} 
+\index{Haversine.h@{Haversine.h}!haversine@{haversine}}
+\index{haversine@{haversine}!Haversine.h@{Haversine.h}}
+\doxysubsubsection{\texorpdfstring{haversine()}{haversine()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double haversine (\begin{DoxyParamCaption}\item[{double}]{lat1,  }\item[{double}]{lon1,  }\item[{double}]{lat2,  }\item[{double}]{lon2 }\end{DoxyParamCaption})}
+
+Esta função retorna uma distância entre dois pontos, calculada com a formula de Haversine, dadas as suas coordenadas 
+\begin{DoxyParams}{Parameters}
+{\em lat1} & Latitude do primeiro ponto \\
+\hline
+{\em lon1} & Longitude do primeiro ponto \\
+\hline
+{\em lat2} & Latitude do segundo ponto \\
+\hline
+{\em lon2} & Longitude do segundo ponto \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A distância entre os dois pontos 
+\end{DoxyReturn}

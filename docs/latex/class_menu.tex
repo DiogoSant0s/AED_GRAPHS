@@ -1,0 +1,289 @@
+\hypertarget{class_menu}{}\doxysection{Menu Class Reference}
+\label{class_menu}\index{Menu@{Menu}}
+
+
+{\ttfamily \#include $<$Menu.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_menu_ad466dd83355124a6ed958430450bfe94}{Menu}} ()
+\item 
+void \mbox{\hyperlink{class_menu_a3b8b00715336601914f644ab6dbe17af}{Main\+Menu}} ()
+\item 
+void \mbox{\hyperlink{class_menu_a53c7dec727dfbde1fe3c0ca6c496590b}{Flights\+Menu}} () const
+\item 
+void \mbox{\hyperlink{class_menu_ac9bb81b71a8b0613e2519f76fa8911dd}{Airports\+Menu}} ()
+\item 
+void \mbox{\hyperlink{class_menu_ac547b1d769fd85e4b3f23843c4dc7615}{Airlines\+Menu}} () const
+\item 
+void \mbox{\hyperlink{class_menu_a4682843edbdc2f55c932320c587deff6}{flights\+From\+Airport\+Info}} (const string \&airport\+\_\+code) const
+\item 
+void \mbox{\hyperlink{class_menu_a4b0f9397b9fd2b79cb3c18ea9524557b}{airlines\+From\+Airport\+Info}} (const string \&airport\+\_\+code) const
+\item 
+void \mbox{\hyperlink{class_menu_aa10e1616e62c940439e045e8574da1f8}{cities\+From\+Airport\+Info}} (const string \&airport\+\_\+code) const
+\item 
+void \mbox{\hyperlink{class_menu_a99eebdca777551a0cf8a82bf0e1bc208}{countries\+From\+Airport\+Info}} (const string \&airport\+\_\+code) const
+\item 
+void \mbox{\hyperlink{class_menu_a940e355c5a8c57a35171a55c96773241}{reach\+In\+Flights}} (const string \&airport\+\_\+code)
+\item 
+void \mbox{\hyperlink{class_menu_ad963829b952207e8121d621ca9ff05a3}{reachable\+Airports\+In\+Flights}} (const string \&airport\+\_\+code, int nr\+\_\+flights)
+\item 
+void \mbox{\hyperlink{class_menu_aecb6c9f57faf25447e5029e4e2a1c9c9}{reachable\+Cities\+In\+Flights}} (const string \&airport\+\_\+code, int nr\+\_\+flights)
+\item 
+void \mbox{\hyperlink{class_menu_a841a9f3b07a9d2ece6d7668f496d5b21}{reachable\+Countries\+In\+Flights}} (const string \&airport\+\_\+code, int nr\+\_\+flights)
+\item 
+void \mbox{\hyperlink{class_menu_a174f1100e7a149b80f940e0ecf5869e4}{input\+City}} () const
+\item 
+void \mbox{\hyperlink{class_menu_adcdf371c3c3e52f884dc127d5a441deb}{input\+Coordinates}} (bool option) const
+\item 
+void \mbox{\hyperlink{class_menu_a251fb7d0d6d15692c9d6449d6a43f702}{input\+Airport}} () const
+\item 
+void \mbox{\hyperlink{class_menu_aeeec4434ec86586c3c2231981827fc58}{global\+Info}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_menu_ae3a5edcb580112ec449d12d9eb5a3e7c}{clear\+Screen}} ()
+\item 
+static void \mbox{\hyperlink{class_menu_a8f97d9f899ffefdd2e9860adf4c86c39}{print\+Title}} ()
+\item 
+static void \mbox{\hyperlink{class_menu_a7472b3c89b466655b96f611ea860e516}{pages}} (const list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ \&traveled\+\_\+airports)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the menu. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_menu_ad466dd83355124a6ed958430450bfe94}\label{class_menu_ad466dd83355124a6ed958430450bfe94}} 
+\index{Menu@{Menu}!Menu@{Menu}}
+\index{Menu@{Menu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{Menu()}{Menu()}}
+{\footnotesize\ttfamily Menu\+::\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor of the \mbox{\hyperlink{class_menu}{Menu}} class.
+
+Also creates a new Manager to execute every action needed. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_menu_a4b0f9397b9fd2b79cb3c18ea9524557b}\label{class_menu_a4b0f9397b9fd2b79cb3c18ea9524557b}} 
+\index{Menu@{Menu}!airlinesFromAirportInfo@{airlinesFromAirportInfo}}
+\index{airlinesFromAirportInfo@{airlinesFromAirportInfo}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{airlinesFromAirportInfo()}{airlinesFromAirportInfo()}}
+{\footnotesize\ttfamily void Menu\+::airlines\+From\+Airport\+Info (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Prints all airlines available in a single airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_ac547b1d769fd85e4b3f23843c4dc7615}\label{class_menu_ac547b1d769fd85e4b3f23843c4dc7615}} 
+\index{Menu@{Menu}!AirlinesMenu@{AirlinesMenu}}
+\index{AirlinesMenu@{AirlinesMenu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{AirlinesMenu()}{AirlinesMenu()}}
+{\footnotesize\ttfamily void Menu\+::\+Airlines\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Initializes the airline info menu.
+
+This menu is used to give all information about a airline such as name,call-\/sign,ect. \mbox{\Hypertarget{class_menu_ac9bb81b71a8b0613e2519f76fa8911dd}\label{class_menu_ac9bb81b71a8b0613e2519f76fa8911dd}} 
+\index{Menu@{Menu}!AirportsMenu@{AirportsMenu}}
+\index{AirportsMenu@{AirportsMenu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{AirportsMenu()}{AirportsMenu()}}
+{\footnotesize\ttfamily void Menu\+::\+Airports\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initializes the airport info menu.
+
+This menu is used to give access to all information about a airport such as name,location,flights available,etc. \mbox{\Hypertarget{class_menu_aa10e1616e62c940439e045e8574da1f8}\label{class_menu_aa10e1616e62c940439e045e8574da1f8}} 
+\index{Menu@{Menu}!citiesFromAirportInfo@{citiesFromAirportInfo}}
+\index{citiesFromAirportInfo@{citiesFromAirportInfo}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{citiesFromAirportInfo()}{citiesFromAirportInfo()}}
+{\footnotesize\ttfamily void Menu\+::cities\+From\+Airport\+Info (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Prints all cities reachable within all of the flights available in a single airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_ae3a5edcb580112ec449d12d9eb5a3e7c}\label{class_menu_ae3a5edcb580112ec449d12d9eb5a3e7c}} 
+\index{Menu@{Menu}!clearScreen@{clearScreen}}
+\index{clearScreen@{clearScreen}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{clearScreen()}{clearScreen()}}
+{\footnotesize\ttfamily void Menu\+::clear\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Complexity\+: O(1) Método void que \char`\"{}limpa\char`\"{} o ecrã \mbox{\Hypertarget{class_menu_a99eebdca777551a0cf8a82bf0e1bc208}\label{class_menu_a99eebdca777551a0cf8a82bf0e1bc208}} 
+\index{Menu@{Menu}!countriesFromAirportInfo@{countriesFromAirportInfo}}
+\index{countriesFromAirportInfo@{countriesFromAirportInfo}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{countriesFromAirportInfo()}{countriesFromAirportInfo()}}
+{\footnotesize\ttfamily void Menu\+::countries\+From\+Airport\+Info (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Prints all counties reachable within all of the flights available in a single airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a4682843edbdc2f55c932320c587deff6}\label{class_menu_a4682843edbdc2f55c932320c587deff6}} 
+\index{Menu@{Menu}!flightsFromAirportInfo@{flightsFromAirportInfo}}
+\index{flightsFromAirportInfo@{flightsFromAirportInfo}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{flightsFromAirportInfo()}{flightsFromAirportInfo()}}
+{\footnotesize\ttfamily void Menu\+::flights\+From\+Airport\+Info (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption}) const}
+
+Prints all airports reachable in all flights available in a single airport.
+
+Time Complexity-\/ O($\vert$\+E$\vert$ log($\vert$\+V$\vert$)).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a53c7dec727dfbde1fe3c0ca6c496590b}\label{class_menu_a53c7dec727dfbde1fe3c0ca6c496590b}} 
+\index{Menu@{Menu}!FlightsMenu@{FlightsMenu}}
+\index{FlightsMenu@{FlightsMenu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{FlightsMenu()}{FlightsMenu()}}
+{\footnotesize\ttfamily void Menu\+::\+Flights\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Initializes the search flights menu.
+
+This menu is used to select which search method will be used to explore the air traffic. \mbox{\Hypertarget{class_menu_aeeec4434ec86586c3c2231981827fc58}\label{class_menu_aeeec4434ec86586c3c2231981827fc58}} 
+\index{Menu@{Menu}!globalInfo@{globalInfo}}
+\index{globalInfo@{globalInfo}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{globalInfo()}{globalInfo()}}
+{\footnotesize\ttfamily void Menu\+::global\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Opens the menu with the global information
+
+This menu is used to view top flights, all airports available, all airlines, ect. \mbox{\Hypertarget{class_menu_a251fb7d0d6d15692c9d6449d6a43f702}\label{class_menu_a251fb7d0d6d15692c9d6449d6a43f702}} 
+\index{Menu@{Menu}!inputAirport@{inputAirport}}
+\index{inputAirport@{inputAirport}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{inputAirport()}{inputAirport()}}
+{\footnotesize\ttfamily void Menu\+::input\+Airport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Opens the inputting menu for airports.
+
+This menu is used to input the current airport where the client is and the desired airport the client wants to go. \mbox{\Hypertarget{class_menu_a174f1100e7a149b80f940e0ecf5869e4}\label{class_menu_a174f1100e7a149b80f940e0ecf5869e4}} 
+\index{Menu@{Menu}!inputCity@{inputCity}}
+\index{inputCity@{inputCity}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{inputCity()}{inputCity()}}
+{\footnotesize\ttfamily void Menu\+::input\+City (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Opens the inputting menu for cities.
+
+This menu is used to input the current city where the client is and the desired city the client wants to go. \mbox{\Hypertarget{class_menu_adcdf371c3c3e52f884dc127d5a441deb}\label{class_menu_adcdf371c3c3e52f884dc127d5a441deb}} 
+\index{Menu@{Menu}!inputCoordinates@{inputCoordinates}}
+\index{inputCoordinates@{inputCoordinates}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{inputCoordinates()}{inputCoordinates()}}
+{\footnotesize\ttfamily void Menu\+::input\+Coordinates (\begin{DoxyParamCaption}\item[{bool}]{option }\end{DoxyParamCaption}) const}
+
+Opens the inputting menu for gps coordinates of the airports.
+
+This menu is used to input the current airport\textquotesingle{}s coordinates where the client is and the desired airport\textquotesingle{}s coordinates the client wants to go. 
+\begin{DoxyParams}{Parameters}
+{\em option} & Option to input the exact coordinates or not.\\
+\hline
+\end{DoxyParams}
+option=true means the client wants to input the exact coordinates of a airport and option=false means the client will just input coordinates close to the airport. \mbox{\Hypertarget{class_menu_a3b8b00715336601914f644ab6dbe17af}\label{class_menu_a3b8b00715336601914f644ab6dbe17af}} 
+\index{Menu@{Menu}!MainMenu@{MainMenu}}
+\index{MainMenu@{MainMenu}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{MainMenu()}{MainMenu()}}
+{\footnotesize\ttfamily void Menu\+::\+Main\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Initializes the main menu. \mbox{\Hypertarget{class_menu_a7472b3c89b466655b96f611ea860e516}\label{class_menu_a7472b3c89b466655b96f611ea860e516}} 
+\index{Menu@{Menu}!pages@{pages}}
+\index{pages@{pages}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{pages()}{pages()}}
+{\footnotesize\ttfamily void Menu\+::pages (\begin{DoxyParamCaption}\item[{const list$<$ list$<$ pair$<$ \mbox{\hyperlink{class_airport}{Airport}}, string $>$ $>$ $>$ \&}]{traveled\+\_\+airports }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Prints all the traveled airports in a trip the client selected.
+
+In case of impossible travels this menu also warns the client. 
+\begin{DoxyParams}{Parameters}
+{\em traveled\+\_\+airports} & List of all the airports traveled. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a8f97d9f899ffefdd2e9860adf4c86c39}\label{class_menu_a8f97d9f899ffefdd2e9860adf4c86c39}} 
+\index{Menu@{Menu}!printTitle@{printTitle}}
+\index{printTitle@{printTitle}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{printTitle()}{printTitle()}}
+{\footnotesize\ttfamily void Menu\+::print\+Title (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Complexity\+: O(1) Método void que apresenta o título do menu \mbox{\Hypertarget{class_menu_ad963829b952207e8121d621ca9ff05a3}\label{class_menu_ad963829b952207e8121d621ca9ff05a3}} 
+\index{Menu@{Menu}!reachableAirportsInFlights@{reachableAirportsInFlights}}
+\index{reachableAirportsInFlights@{reachableAirportsInFlights}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{reachableAirportsInFlights()}{reachableAirportsInFlights()}}
+{\footnotesize\ttfamily void Menu\+::reachable\+Airports\+In\+Flights (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code,  }\item[{int}]{nr\+\_\+flights }\end{DoxyParamCaption})}
+
+Prints all airports reachable within a fixed number of flights starting from a source airport.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+{\em nr\+\_\+flights} & Number of flights desired. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_aecb6c9f57faf25447e5029e4e2a1c9c9}\label{class_menu_aecb6c9f57faf25447e5029e4e2a1c9c9}} 
+\index{Menu@{Menu}!reachableCitiesInFlights@{reachableCitiesInFlights}}
+\index{reachableCitiesInFlights@{reachableCitiesInFlights}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{reachableCitiesInFlights()}{reachableCitiesInFlights()}}
+{\footnotesize\ttfamily void Menu\+::reachable\+Cities\+In\+Flights (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code,  }\item[{int}]{nr\+\_\+flights }\end{DoxyParamCaption})}
+
+Prints all cities reachable within a fixed number of flights starting from a source airport.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+{\em nr\+\_\+flights} & Number of flights desired. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a841a9f3b07a9d2ece6d7668f496d5b21}\label{class_menu_a841a9f3b07a9d2ece6d7668f496d5b21}} 
+\index{Menu@{Menu}!reachableCountriesInFlights@{reachableCountriesInFlights}}
+\index{reachableCountriesInFlights@{reachableCountriesInFlights}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{reachableCountriesInFlights()}{reachableCountriesInFlights()}}
+{\footnotesize\ttfamily void Menu\+::reachable\+Countries\+In\+Flights (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code,  }\item[{int}]{nr\+\_\+flights }\end{DoxyParamCaption})}
+
+Prints all countries reachable within a fixed number of flights starting from a source airport.
+
+Time Complexity -\/ O($\vert$\+V$\vert$ + $\vert$\+E$\vert$).
+
+V is the number of vertices/nodes and E is the number of edges/links. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+{\em nr\+\_\+flights} & Number of flights desired. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_menu_a940e355c5a8c57a35171a55c96773241}\label{class_menu_a940e355c5a8c57a35171a55c96773241}} 
+\index{Menu@{Menu}!reachInFlights@{reachInFlights}}
+\index{reachInFlights@{reachInFlights}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{reachInFlights()}{reachInFlights()}}
+{\footnotesize\ttfamily void Menu\+::reach\+In\+Flights (\begin{DoxyParamCaption}\item[{const string \&}]{airport\+\_\+code }\end{DoxyParamCaption})}
+
+Opens the menu to help costumers view all places reachable within a wanted number of flights starting from a source airport. 
+\begin{DoxyParams}{Parameters}
+{\em airport\+\_\+code} & \mbox{\hyperlink{class_airport}{Airport}}\textquotesingle{}s code. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Diogo/\+Desktop/\+AED/\+AED\+\_\+\+GRAPHS/src/\mbox{\hyperlink{_menu_8h}{Menu.\+h}}\item 
+C\+:/\+Users/\+Diogo/\+Desktop/\+AED/\+AED\+\_\+\+GRAPHS/src/\mbox{\hyperlink{_menu_8cpp}{Menu.\+cpp}}\end{DoxyCompactItemize}

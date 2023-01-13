@@ -1,0 +1,121 @@
+\hypertarget{class_airline}{}\doxysection{Airline Class Reference}
+\label{class_airline}\index{Airline@{Airline}}
+
+
+{\ttfamily \#include $<$Airline.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_airline_a74c2655b6bc4aca962dbb76942c29e18}{Airline}} ()=default
+\item 
+\mbox{\hyperlink{class_airline_ab6ca9dcf88120df1e835650ca6aa7cbd}{Airline}} (string code, string name, string callsign, string country)
+\begin{DoxyCompactList}\small\item\em Construtor da classe \mbox{\hyperlink{class_airline}{Airline}}. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_airline_a41ef613d6b390c463821b9ae43d9ec84}{get\+Code}} () const
+\item 
+string \mbox{\hyperlink{class_airline_a24f8b8e17d2d10af233b12671673bcd8}{get\+Name}} () const
+\item 
+string \mbox{\hyperlink{class_airline_a62ae304502e6b8ce6e67843908a3f1f8}{get\+Call\+Sign}} () const
+\item 
+string \mbox{\hyperlink{class_airline_a265c119d09effb03f8c7b3107f8d49dd}{get\+Country}} () const
+\item 
+bool \mbox{\hyperlink{class_airline_ac7c9917901dd5d9c7d7f7c831b26d03e}{operator==}} (const \mbox{\hyperlink{class_airline}{Airline}} \&airline) const
+\begin{DoxyCompactList}\small\item\em Operador de igualdade para dois membros da classe \mbox{\hyperlink{class_airline}{Airline}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe que representa uma companhia aérea. Esta classe representa uma companhia aérea, com o seu codigo, nome, call sign e o seu país de origem 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_airline_a74c2655b6bc4aca962dbb76942c29e18}\label{class_airline_a74c2655b6bc4aca962dbb76942c29e18}} 
+\index{Airline@{Airline}!Airline@{Airline}}
+\index{Airline@{Airline}!Airline@{Airline}}
+\doxysubsubsection{\texorpdfstring{Airline()}{Airline()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Airline\+::\+Airline (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Create a new \mbox{\hyperlink{class_airline}{Airline}}.
+
+Constructor of the \mbox{\hyperlink{class_airline}{Airline}} class. \mbox{\Hypertarget{class_airline_ab6ca9dcf88120df1e835650ca6aa7cbd}\label{class_airline_ab6ca9dcf88120df1e835650ca6aa7cbd}} 
+\index{Airline@{Airline}!Airline@{Airline}}
+\index{Airline@{Airline}!Airline@{Airline}}
+\doxysubsubsection{\texorpdfstring{Airline()}{Airline()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Airline\+::\+Airline (\begin{DoxyParamCaption}\item[{string}]{code,  }\item[{string}]{name,  }\item[{string}]{callsign,  }\item[{string}]{country }\end{DoxyParamCaption})}
+
+
+
+Construtor da classe \mbox{\hyperlink{class_airline}{Airline}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em code} & Código da companhia aérea \\
+\hline
+{\em name} & Nome da companhia aérea \\
+\hline
+{\em call\+Sign} & Call sign da companhia aérea \\
+\hline
+{\em country} & Pais de origem da companhia aérea \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_airline_a62ae304502e6b8ce6e67843908a3f1f8}\label{class_airline_a62ae304502e6b8ce6e67843908a3f1f8}} 
+\index{Airline@{Airline}!getCallSign@{getCallSign}}
+\index{getCallSign@{getCallSign}!Airline@{Airline}}
+\doxysubsubsection{\texorpdfstring{getCallSign()}{getCallSign()}}
+{\footnotesize\ttfamily string Airline\+::get\+Call\+Sign (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Complexity\+: O(1) Método normal que devolve o atributo call\+Sign \begin{DoxyReturn}{Returns}
+O call sign da companhia aérea 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_airline_a41ef613d6b390c463821b9ae43d9ec84}\label{class_airline_a41ef613d6b390c463821b9ae43d9ec84}} 
+\index{Airline@{Airline}!getCode@{getCode}}
+\index{getCode@{getCode}!Airline@{Airline}}
+\doxysubsubsection{\texorpdfstring{getCode()}{getCode()}}
+{\footnotesize\ttfamily string Airline\+::get\+Code (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Complexity\+: O(1) Método normal que devolve o atributo code \begin{DoxyReturn}{Returns}
+O código da companhia aérea 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_airline_a265c119d09effb03f8c7b3107f8d49dd}\label{class_airline_a265c119d09effb03f8c7b3107f8d49dd}} 
+\index{Airline@{Airline}!getCountry@{getCountry}}
+\index{getCountry@{getCountry}!Airline@{Airline}}
+\doxysubsubsection{\texorpdfstring{getCountry()}{getCountry()}}
+{\footnotesize\ttfamily string Airline\+::get\+Country (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Complexity\+: O(1) Método normal que devolve o atributo country \begin{DoxyReturn}{Returns}
+O país de origem da companhia aérea 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_airline_a24f8b8e17d2d10af233b12671673bcd8}\label{class_airline_a24f8b8e17d2d10af233b12671673bcd8}} 
+\index{Airline@{Airline}!getName@{getName}}
+\index{getName@{getName}!Airline@{Airline}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily string Airline\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Complexity\+: O(1) Método normal que devolve o atributo name \begin{DoxyReturn}{Returns}
+O nome da companhia aérea 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_airline_ac7c9917901dd5d9c7d7f7c831b26d03e}\label{class_airline_ac7c9917901dd5d9c7d7f7c831b26d03e}} 
+\index{Airline@{Airline}!operator==@{operator==}}
+\index{operator==@{operator==}!Airline@{Airline}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Airline\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_airline}{Airline}} \&}]{airline }\end{DoxyParamCaption}) const}
+
+
+
+Operador de igualdade para dois membros da classe \mbox{\hyperlink{class_airline}{Airline}}. 
+
+Complexity\+: O(1) 
+\begin{DoxyParams}{Parameters}
+{\em airline} & Companhia aérea a comparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True se o código da companhia aérea for igual que o codigo da companhia aérea airline 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Diogo/\+Desktop/\+AED/\+AED\+\_\+\+GRAPHS/src/\mbox{\hyperlink{_airline_8h}{Airline.\+h}}\item 
+C\+:/\+Users/\+Diogo/\+Desktop/\+AED/\+AED\+\_\+\+GRAPHS/src/\mbox{\hyperlink{_airline_8cpp}{Airline.\+cpp}}\end{DoxyCompactItemize}

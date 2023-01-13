@@ -1,0 +1,55 @@
+\hypertarget{_data_8h_source}{}\doxysection{Data.\+h}
+\label{_data_8h_source}\index{C:/Users/Diogo/Desktop/AED/AED\_GRAPHS/src/Data.h@{C:/Users/Diogo/Desktop/AED/AED\_GRAPHS/src/Data.h}}
+\mbox{\hyperlink{_data_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef AED\_SCHEDULE\_LOADDATA\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define AED\_SCHEDULE\_LOADDATA\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_graph_8h}{Graph.h}}"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <list>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <sstream>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <unordered\_set>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{18 \textcolor{keyword}{class }\mbox{\hyperlink{class_data}{Data}} \{}
+\DoxyCodeLine{19 \textcolor{keyword}{private}:}
+\DoxyCodeLine{21     \mbox{\hyperlink{class_graph}{Graph}}* airports;}
+\DoxyCodeLine{23     unordered\_map<string, Airline> airlines;}
+\DoxyCodeLine{25     unordered\_set<string> cities;}
+\DoxyCodeLine{31     \textcolor{keywordtype}{bool} how\_to\_fly;}
+\DoxyCodeLine{36     \textcolor{keywordtype}{void} readData();}
+\DoxyCodeLine{37 \textcolor{keyword}{public}:}
+\DoxyCodeLine{43     \mbox{\hyperlink{class_data_af11f741cb7f587e2e495452a8905a22a}{Data}}();}
+\DoxyCodeLine{49     \mbox{\hyperlink{class_data_aab31956423290f0d62dcca47ab4d16dd}{\string~Data}}();}
+\DoxyCodeLine{56     \mbox{\hyperlink{class_airport}{Airport}} \mbox{\hyperlink{class_data_a9181d273a3f423496cccbe5d81c2bb8c}{getAirport}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{63     \mbox{\hyperlink{class_airline}{Airline}} \mbox{\hyperlink{class_data_a25ba8485f32c3f50c6b0f5a089313c10}{getAirline}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airline\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{72     list<list<pair<Airport, string>>> \mbox{\hyperlink{class_data_a11f7ca4645a2e9fc6d886d5d79d0c149}{getTraveledAirports}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& source\_airport, \textcolor{keyword}{const} \textcolor{keywordtype}{string}\& target\_airport) \textcolor{keyword}{const};}
+\DoxyCodeLine{84     list<list<pair<Airport, string>>> \mbox{\hyperlink{class_data_ad05e94080357d515dd2fd44a75b0423d}{getTraveledAirportsCoordinates}}(\textcolor{keywordtype}{double} start\_latitude, \textcolor{keywordtype}{double} start\_longitude,}
+\DoxyCodeLine{85                                                                      \textcolor{keywordtype}{double} end\_latitude, \textcolor{keywordtype}{double} end\_longitude, \textcolor{keywordtype}{int} dist) \textcolor{keyword}{const};}
+\DoxyCodeLine{94     list<list<pair<Airport, string>>> \mbox{\hyperlink{class_data_ae9c6e4ae35c769ecc6ac46f3823fc42b}{getTraveledAirportsCity}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& start, \textcolor{keyword}{const} \textcolor{keywordtype}{string}\& end) \textcolor{keyword}{const};}
+\DoxyCodeLine{105     list<list<pair<Airport, string>>> \mbox{\hyperlink{class_data_aa18fd1ca9d9beef82997b42569b094b8}{getTraveledAirportsCoordinatesClosest}}(\textcolor{keywordtype}{double} start\_latitude, \textcolor{keywordtype}{double} start\_longitude,}
+\DoxyCodeLine{106                                                                             \textcolor{keywordtype}{double} end\_latitude, \textcolor{keywordtype}{double} end\_longitude) \textcolor{keyword}{const};}
+\DoxyCodeLine{114     list<Airline> \mbox{\hyperlink{class_data_a934a7b7a7b6b5c1eeb576e64265ed97b}{getAirlinesFromAirport}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{123     list<Airport> \mbox{\hyperlink{class_data_af24ebfe196059c184a319b3cbc9a58ae}{getAirportsReached}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& source\_airport, \textcolor{keywordtype}{int} k);}
+\DoxyCodeLine{132     set<string> \mbox{\hyperlink{class_data_a245ffd2134cda9db4b3ab64904047963}{getCitiesReached}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& source\_airport, \textcolor{keywordtype}{int} k);}
+\DoxyCodeLine{141     set<string> \mbox{\hyperlink{class_data_a718da86d7aa5a63346ee1e61489dc77a}{getCountriesReached}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& source\_airport, \textcolor{keywordtype}{int} k);}
+\DoxyCodeLine{149     set<string> \mbox{\hyperlink{class_data_a75666f39dbb622d7cf97e2fa4de30ac3}{getArrivalAirport}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{157     set<string> \mbox{\hyperlink{class_data_aa8a18d9284b7a2e040b045333e8b4978}{getArrivalCities}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{165     set<string> \mbox{\hyperlink{class_data_a19a47607fe508e1170354ecfb2a026a4}{getArrivalCountries}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{174     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_data_a9ba3032eadf15469fb251ade96d1bb3b}{checkIfAirportExists}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{183     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_data_a140211c7b84e940ec8de84ed7f139538}{checkIfAirlineExists}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airline\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{190     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_data_aec37e5a149e186ed9ac24139d17a0927}{size\_aiports}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{196     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_data_a83ccc829b9659271648ac748a4887864}{size\_airlines}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{203     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_data_a9356000d002c6f7a2bdf4a3b69ae23fb}{size\_flights}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{210     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_data_a3cf9205ad02962ba3f58bb102855c84d}{diameter}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{216     multiset<pair<string, int>, \mbox{\hyperlink{struct_distance}{Distance}}> \mbox{\hyperlink{class_data_a9f669fc6b38ecfbff853e125bd8ce0d6}{top\_flights}}(\textcolor{keywordtype}{int} k) \textcolor{keyword}{const};}
+\DoxyCodeLine{217 \};}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//AED\_SCHEDULE\_LOADDATA\_H}}
+
+\end{DoxyCode}

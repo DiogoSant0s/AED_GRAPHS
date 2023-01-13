@@ -1,0 +1,40 @@
+\hypertarget{_menu_8h_source}{}\doxysection{Menu.\+h}
+\label{_menu_8h_source}\index{C:/Users/Diogo/Desktop/AED/AED\_GRAPHS/src/Menu.h@{C:/Users/Diogo/Desktop/AED/AED\_GRAPHS/src/Menu.h}}
+\mbox{\hyperlink{_menu_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef AED\_SCHEDULE\_MENU\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define AED\_SCHEDULE\_MENU\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_data_8h}{Data.h}}"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_menu}{Menu}} \{}
+\DoxyCodeLine{12 \textcolor{keyword}{private}:}
+\DoxyCodeLine{13     \mbox{\hyperlink{class_data}{Data}} data;}
+\DoxyCodeLine{14 \textcolor{keyword}{public}:}
+\DoxyCodeLine{19     \mbox{\hyperlink{class_menu_ad466dd83355124a6ed958430450bfe94}{Menu}}();}
+\DoxyCodeLine{24     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_ae3a5edcb580112ec449d12d9eb5a3e7c}{clearScreen}}();}
+\DoxyCodeLine{29     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a8f97d9f899ffefdd2e9860adf4c86c39}{printTitle}}();}
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a3b8b00715336601914f644ab6dbe17af}{MainMenu}}();}
+\DoxyCodeLine{38     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a53c7dec727dfbde1fe3c0ca6c496590b}{FlightsMenu}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{43     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_ac9bb81b71a8b0613e2519f76fa8911dd}{AirportsMenu}}();}
+\DoxyCodeLine{48     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_ac547b1d769fd85e4b3f23843c4dc7615}{AirlinesMenu}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{55     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a4682843edbdc2f55c932320c587deff6}{flightsFromAirportInfo}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{62     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a4b0f9397b9fd2b79cb3c18ea9524557b}{airlinesFromAirportInfo}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{69     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_aa10e1616e62c940439e045e8574da1f8}{citiesFromAirportInfo}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{76     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a99eebdca777551a0cf8a82bf0e1bc208}{countriesFromAirportInfo}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code) \textcolor{keyword}{const};}
+\DoxyCodeLine{81     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a940e355c5a8c57a35171a55c96773241}{reachInFlights}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code);}
+\DoxyCodeLine{89     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_ad963829b952207e8121d621ca9ff05a3}{reachableAirportsInFlights}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code, \textcolor{keywordtype}{int} nr\_flights);}
+\DoxyCodeLine{97     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_aecb6c9f57faf25447e5029e4e2a1c9c9}{reachableCitiesInFlights}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code, \textcolor{keywordtype}{int} nr\_flights);}
+\DoxyCodeLine{105     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a841a9f3b07a9d2ece6d7668f496d5b21}{reachableCountriesInFlights}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& airport\_code, \textcolor{keywordtype}{int} nr\_flights);}
+\DoxyCodeLine{110     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a174f1100e7a149b80f940e0ecf5869e4}{inputCity}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{116     \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a7472b3c89b466655b96f611ea860e516}{pages}}(\textcolor{keyword}{const} list<list<pair<Airport, string>>>\& traveled\_airports) ;}
+\DoxyCodeLine{123     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_adcdf371c3c3e52f884dc127d5a441deb}{inputCoordinates}}(\textcolor{keywordtype}{bool} option) \textcolor{keyword}{const};}
+\DoxyCodeLine{128     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_a251fb7d0d6d15692c9d6449d6a43f702}{inputAirport}}() \textcolor{keyword}{const};}
+\DoxyCodeLine{133     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_menu_aeeec4434ec86586c3c2231981827fc58}{globalInfo}}();}
+\DoxyCodeLine{134 \};}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
