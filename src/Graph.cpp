@@ -220,11 +220,11 @@ list<list<pair<Airport, string>>> Graph::getTraveledAirportsByDistance(const str
 string Graph::findAirport(double latitude, double longitude){
     string code;
     double latitude_min = INT64_MAX, longitude_min = INT64_MAX;
-    for (const auto& node: nodes) {//V
-        if (haversine(latitude,node.second.airport.getLatitude(),longitude,node.second.airport.getLongitude())<haversine(latitude,latitude_min,longitude,longitude_min)) {//log(n)
-            code = node.second.airport.getCode();//1
-            latitude_min=node.second.airport.getLatitude();//1
-            longitude_min=node.second.airport.getLongitude();//1
+    for (const auto& node: nodes) {
+        if (haversine(latitude,node.second.airport.getLatitude(),longitude,node.second.airport.getLongitude())<haversine(latitude,latitude_min,longitude,longitude_min)) {
+            code = node.second.airport.getCode();
+            latitude_min=node.second.airport.getLatitude();
+            longitude_min=node.second.airport.getLongitude();
         }
     }
     return code;

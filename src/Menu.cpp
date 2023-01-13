@@ -18,7 +18,7 @@ void Menu::clearScreen() {
     }
 }
 
-void Menu::init() {
+void Menu::MainMenu() {
     while (true) {
         clearScreen();
         printTitle();
@@ -43,13 +43,13 @@ void Menu::init() {
 
         switch (opt) {
             case '1':
-                inputFlights();
+                FlightsMenu();
                 break;
             case '2':
-                airportInfo();
+                AirportsMenu();
                 break;
             case '3':
-                airlineInfo();
+                AirlinesMenu();
                 break;
             case '4':
                 globalInfo();
@@ -61,7 +61,7 @@ void Menu::init() {
     }
 }
 
-void Menu::inputFlights() const {
+void Menu::FlightsMenu() const {
     while (true) {
         clearScreen();
         cout << "--------------------------------------------------------\n";
@@ -411,7 +411,7 @@ void Menu::globalInfo() {
     while(cin.get() != '\n') {}
 }
 
-void Menu::airportInfo() {
+void Menu::AirportsMenu() {
     string airport_code;
     Airport airport;
     clearScreen();
@@ -494,7 +494,7 @@ void Menu::airportInfo() {
     }
 }
 
-void Menu::airlineInfo() const {
+void Menu::AirlinesMenu() const {
     string airline_code;
     Airline airline;
     clearScreen();

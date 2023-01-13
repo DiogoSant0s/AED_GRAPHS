@@ -30,22 +30,22 @@ public:
     /**
      * Initializes the main menu.
      */
-    void init();
+    void MainMenu();
     /**
      * Initializes the search flights menu.
      * @details This menu is used to select which search method will be used to explore the air traffic.
      */
-    void inputFlights() const;
+    void FlightsMenu() const;
     /**
      * Initializes the airport info menu.
      * @details This menu is used to give access to all information about a airport such as name,location,flights available,etc.
      */
-    void airportInfo();
+    void AirportsMenu();
     /**
      * Initializes the airline info menu.
      * @details This menu is used to give all information about a airline such as name,call-sign,ect.
      */
-    void airlineInfo() const;
+    void AirlinesMenu() const;
     /**
      * Prints all airports reachable in all flights available in a single airport.
      * @details Time Complexity- O(|E| log(|V|)).
